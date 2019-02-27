@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ata.bean.DriverBean;
+import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
 
+@Transactional
 @Repository
 public class AdministratorImp implements Administrator {
 	
@@ -24,24 +26,27 @@ public class AdministratorImp implements Administrator {
 	@Override
 	@Transactional
 	public String addVehicle(VehicleBean vehicleBean) {
-		String s=Character.toString(vehicleBean.getName().charAt(0));
-		String d=Character.toString(vehicleBean.getName().charAt(1));
-		SQLQuery q=sessionfactory.getCurrentSession().createSQLQuery("Select vehicleID from ata_tbl_id where genID=:genID");
-		q.setInteger("genID", 72);
-		int val=q.getFirstResult();
+		String s=Character.toString(vehicleBean.getName().charAt(0)).toUpperCase();
+		String d=Character.toString(vehicleBean.getName().charAt(1)).toUpperCase();
+		Query q=sessionfactory.getCurrentSession().createSQLQuery("Select vehicleID from ata_tbl_id");
+		int val=(int) q.list().get(0);
 		vehicleBean.setVehicleID(s+d+val);
-		System.out.println("sessiofactory: "+sessionfactory);
 		sessionfactory.getCurrentSession().save(vehicleBean);
-		sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set routeid=routeid+1 where genID=72");
-		return "Object added";
+		SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set vehicleid=vehicleid+1");
+		query.executeUpdate();
+		return "Vehicle Added Successfully with ID : "+vehicleBean.getVehicleID();
 	}
 	
 	@Override
 	@Transactional
 	public int deleteVehicle(String vehicleID) {
 		VehicleBean vehicleBean=(VehicleBean)sessionfactory.getCurrentSession().get(VehicleBean.class, vehicleID);
-		sessionfactory.getCurrentSession().delete(vehicleBean);
-		
+		if(vehicleBean!=null){
+			sessionfactory.getCurrentSession().delete(vehicleBean);
+			SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set vehicleid=vehicleid-1");
+			query.executeUpdate();
+			return 1;
+		}
 		return 0;
 	}
 
@@ -80,14 +85,14 @@ public class AdministratorImp implements Administrator {
 	@Transactional
 	@Override
 	public String addRoute(RouteBean routeBean) {
-		String s=Character.toString(routeBean.getSource().charAt(0));
-		String d=Character.toString(routeBean.getDestination().charAt(0));
-		SQLQuery q=sessionfactory.getCurrentSession().createSQLQuery("Select routeID from ata_tbl_id where genID=:genID");
-		q.setInteger("genID", 72);
-		Integer val=(Integer)q.getFirstResult();
+		String s=Character.toString(routeBean.getSource().charAt(0)).toUpperCase();
+		String d=Character.toString(routeBean.getDestination().charAt(0)).toUpperCase();
+		Query q=sessionfactory.getCurrentSession().createSQLQuery("Select routeID from ata_tbl_id");
+		int val=(int) q.list().get(0);
 		routeBean.setRouteID(s+d+val);
 		sessionfactory.getCurrentSession().save(routeBean);
-		sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set routeid=routeid+1 where genID=72");
+		SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set routeid=routeid+1");
+		query.executeUpdate();
 		return "Route Added Successfully with ID "+routeBean.getRouteID();
 	}
 	
@@ -97,24 +102,26 @@ public class AdministratorImp implements Administrator {
 		RouteBean routeBean=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class,routeID);
 		if(routeBean!=null){
 			sessionfactory.getCurrentSession().delete(routeBean);
+			SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set routeid=routeid-1");
+			query.executeUpdate();
 			return 1;
 		}
 		return 0;
 	}
-
+	@Transactional
 	@Override
-	public RouteBean viewRoute(String routeID) {
-		RouteBean routeBean=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class,routeID);
-		if(routeBean!=null){
-			return routeBean;
-		}
-		return null;
+	public RouteBean viewRoute(String id) {
+		RouteBean rb=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class,id);
+		
+			return rb;
+		
 	}
-
+	@Transactional
 	@Override
 	public boolean modifyRoute(RouteBean routeBean) {
 		RouteBean rbean=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class,routeBean.getRouteID());
 		if(rbean!=null){
+			rbean.setRouteID(routeBean.getRouteID());
 			rbean.setDestination(routeBean.getDestination());
 			rbean.setDistance(routeBean.getDistance());
 			rbean.setSource(routeBean.getSource());
@@ -131,26 +138,31 @@ public class AdministratorImp implements Administrator {
 		List<RouteBean>li1=sessionfactory.getCurrentSession().createCriteria(RouteBean.class).list();
 		return li1;
 	}
-	
+	//=====================DRIVER=================
 	@Transactional
 	@Override
 	public String addDriver(DriverBean driverBean) {
-		String s=Character.toString(driverBean.getName().charAt(0));
-		String d=Character.toString(driverBean.getName().charAt(1));
-		SQLQuery q=sessionfactory.getCurrentSession().createSQLQuery("Select driverID from ata_tbl_id where genID=:genID");
-		q.setInteger("genID", 72);
-		int val=q.getFirstResult();
+		
+		String s=Character.toString(driverBean.getName().charAt(0)).toUpperCase();
+		String d=Character.toString(driverBean.getName().charAt(1)).toUpperCase();
+		Query q=sessionfactory.getCurrentSession().createSQLQuery("Select driverID from ata_tbl_id");
+		int val=(int) q.list().get(0);
 		driverBean.setDriverID(s+d+val);
 		sessionfactory.getCurrentSession().save(driverBean);
-		return "User Added "+driverBean.getDriverID();
+		SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set driverid=driverid+1");
+		query.executeUpdate();
+		return "Driver Added with ID : "+driverBean.getDriverID();
 	}
 	@Transactional
 	@Override
 	public int deleteDriver(String driverID) {
 		DriverBean db=(DriverBean)sessionfactory.getCurrentSession().get(DriverBean.class, driverID);
-		sessionfactory.getCurrentSession().delete(db);
-		if(db!=null)
-		return 1;
+		if(db!=null){
+			sessionfactory.getCurrentSession().delete(db);
+			SQLQuery query=sessionfactory.getCurrentSession().createSQLQuery("update ata_tbl_id set driverid=driverid-1");
+			query.executeUpdate();
+			return 1;
+		}
 		else
 			return 0;
 		
@@ -169,7 +181,6 @@ public class AdministratorImp implements Administrator {
 			db.setPincode(driverBean.getPincode());
 			db.setMobileNo(driverBean.getMobileNo());
 			db.setLicenseNumber(driverBean.getLicenseNumber());
-			
 			sessionfactory.getCurrentSession().update(db);
 			return true;
 		}
@@ -185,12 +196,32 @@ public class AdministratorImp implements Administrator {
 	}
 	@Transactional
 	@Override
-public DriverBean getDriverbyID(String id) {
+	public DriverBean getDriverbyID(String id) {
 		
 		DriverBean db=(DriverBean)sessionfactory.getCurrentSession().get(DriverBean.class, id);
 		return db;
 	}
+
+	@Override
+	public boolean allotDriver(String reservationID, String driverID) {
+		ReservationBean reservationBean=(ReservationBean)sessionfactory.getCurrentSession().get(ReservationBean.class, reservationID);
+		if(reservationBean!=null){
+			reservationBean.setDriverID(driverID);
+			reservationBean.setBookingStatus("1");
+			sessionfactory.getCurrentSession().update(reservationBean);
+			return true;
+		}
+		return false;
 	}
+
+	@Override
+	public List<ReservationBean> viewDetails() {
+		Query q=sessionfactory.getCurrentSession().createQuery("from ReservationBean where bookingstatus=:bookingstatus");
+		q.setParameter("bookingstatus", "0");
+		List<ReservationBean> list=q.list();
+		return list;
+	}
+}
 
 	
 	

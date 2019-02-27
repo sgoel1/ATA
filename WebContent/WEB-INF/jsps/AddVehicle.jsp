@@ -32,6 +32,7 @@ pageEncoding="ISO-8859-1"%>
 			<td><f:button value="Add Vehicle" class="button1">Add Vehicle</f:button></td>
 		</tr>
 	</table>
+	<h2 style="color:red;">${vehicle}</h2>
 </f:form>
 	
 </body>

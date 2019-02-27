@@ -10,7 +10,7 @@
 <form action="modifiedRoute" method="get">
 
 <table>
-<tr><td>Route ID</td><td><input type="hidden" name="driverID" value=${route.routeID}><input type="text" name="rID" value=${route.routeID} disabled></td></tr>
+<tr><td>Route ID</td><td><input type="hidden" name="routeID" value=${route.routeID}><input type="text" name="rID" value=${route.routeID} disabled></td></tr>
 <tr><td>Source</td><td><input type="text" name="source" value=${route.source}></td></tr>
 <tr><td>Destination</td><td><input type="text" name="destination" value=${route.destination}></td></tr>
 <tr><td>Distance</td><td><input type="text" name="distance" value=${route.distance}></td></tr>
@@ -18,5 +18,6 @@
 <tr><td><input type="submit" value="Update"></td></tr>
 </table>
 </form>
+<h2>${message1}</h2>
 </body>
 </html>

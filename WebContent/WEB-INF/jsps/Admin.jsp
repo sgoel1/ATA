@@ -10,8 +10,8 @@
 
   <a href="showdriverpage">Driver</a>|
   <a href="routeMain">Route</a>|
-  <a href="showall">Vehicle</a>|
-  <a href="">Allot Driver</a>
+  <a href="vehicle">Vehicle</a>|
+  <a href="allotdriver">Allot Driver</a>
   
   <a href="" style="float:right">Logout</a>
  

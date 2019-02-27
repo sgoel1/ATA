@@ -21,6 +21,8 @@ public interface Administrator {
 	String addDriver(DriverBean driverBean);
 
 	int deleteDriver(String driverID);
+	
+	boolean allotDriver(String reservationID, String driverID);
 
 	boolean modifyDriver(DriverBean driverBean);
 
@@ -39,6 +41,8 @@ public interface Administrator {
 	public List<VehicleBean> showAllVehicles();
 
 	public List<RouteBean> getAllRoute();
+	
+	public List<ReservationBean> viewDetails();
 
 	// ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String
 	// source, String destination);

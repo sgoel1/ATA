@@ -1,7 +1,5 @@
 package com.ata.controller;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ata.bean.DriverBean;
+import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.service.Administrator;
-
-
-
 
 @Controller
 public class MainController {
@@ -80,7 +76,6 @@ public class MainController {
 		return "RouteMain";
 	}
 	
-	
 	@RequestMapping(value="/route")
 	public String route(Model m){
 		m.addAttribute("routeBean",new RouteBean());
@@ -90,13 +85,15 @@ public class MainController {
 	public String addRoute(RouteBean routeBean,Model m){
 		String res=administratorImp.addRoute(routeBean);
 		m.addAttribute("res",res);
-		return "RouteShow";
+		return "AddRoute";
 	}
 	
 	//=================UPDATING ROUTE==========
 		@RequestMapping(value="/modifyRoute",method=RequestMethod.GET)
 		public String modifyRoute(@RequestParam("routeID") String routeID,Model m)
-		{	RouteBean routeBean=administratorImp.viewRoute(routeID);
+		{	
+			System.out.println(routeID);
+			RouteBean routeBean=administratorImp.viewRoute(routeID);
 			m.addAttribute("route",routeBean);
 			return "EditRoute";
 		}
@@ -105,7 +102,7 @@ public class MainController {
 		{	
 			administratorImp.modifyRoute(routeBean);
 			m.addAttribute("message1","Modified");
-			return "Route";
+			return "EditRoute";
 		}
 		//=============DELETING ROUTE============
 		@RequestMapping(value="/deleteRoute",method=RequestMethod.GET)
@@ -113,15 +110,39 @@ public class MainController {
 		{	
 			administratorImp.deleteRoute(routeID);
 			m.addAttribute("message2","Deleted");
-			return "Route";	
+			return "RouteMain";	
 			}
+		//=============SHOW ALL ROUTES==========
 		@RequestMapping(value="/showRoute",method=RequestMethod.GET)
 		public String showAllRoute(RouteBean routeBean,Model m)
 		{
 			List<RouteBean> li=administratorImp.getAllRoute();
-			m.addAttribute("db", li);
-			return "Driver";
+			m.addAttribute("rb", li);
+			return "RouteShow";
 		}
-	
+		
+		//==============Allot Driver======================
+		
+		@RequestMapping(value="/allotdriver")
+		public String allotdriver(ReservationBean reservationBean,DriverBean driverBean,Model m){
+			List<ReservationBean> li=administratorImp.viewDetails();
+			List<DriverBean> driverlist=administratorImp.getAllDriver();
+			m.addAttribute("ab", li);
+			m.addAttribute("ab1",driverlist);
+			return "AllotDriver";
+		}
+		
+		@RequestMapping(value="")
+		public String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
+			boolean b=administratorImp.allotDriver(reservationID, driverID);
+			if(b==true){
+				m.addAttribute("allotd","Driver Alloted");
+				return "AllotDriver";
+			}
+			else{
+				m.addAttribute("allotd","Driver Not Alloted");
+				return "AllotDriver";
+			}
+		}
 	
 }

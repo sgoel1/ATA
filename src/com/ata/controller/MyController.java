@@ -1,6 +1,8 @@
 package com.ata.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ata.bean.CredentialsBean;
+import com.ata.bean.DriverBean;
 import com.ata.bean.ProfileBean;
+import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.util.Authentication;
 import com.ata.util.User;
@@ -69,10 +73,12 @@ public class MyController {
 		return "signup";
 	}
 	
-	@RequestMapping(value="showdriverpage")
+	@RequestMapping(value="/showdriverpage")
 	public String showdriverpage(){
 		return "Show";
 	}
+	
+	
 	
 	
 	

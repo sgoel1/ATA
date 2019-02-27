@@ -64,22 +64,22 @@ public class UserImpl implements User {
 	
 	@Transactional
 	@Override
-	public String register(ProfileBean profileBean) {	
-		String s=Character.toString(profileBean.getFirstName().charAt(0));
-		String d=Character.toString(profileBean.getLastName().charAt(0));
-		SQLQuery q=sessionFactory.getCurrentSession().createSQLQuery("Select userID from ata_tbl_id where genID=:genID");
-		q.setInteger("genID", 72);
-		Integer res=(Integer)q.uniqueResult();
-	    profileBean.setUserID(s+d+res);
+	public String register(ProfileBean profileBean) {
+		
+		String s=Character.toString(profileBean.getFirstName().charAt(0)).toUpperCase();
+		String d=Character.toString(profileBean.getLastName().charAt(0)).toUpperCase();
+		Query q=sessionFactory.getCurrentSession().createSQLQuery("Select userID from ata_tbl_id");
+		int val=(int) q.list().get(0);
+	    profileBean.setUserID(s+d+val);
 	    CredentialsBean credbean=new CredentialsBean();
-	    credbean.setUserID(s+d+res);
+	    credbean.setUserID(s+d+val);
 	    credbean.setPassword(profileBean.getPassword());
 	    credbean.setLoginStatus(1);
 	    credbean.setUserType("C");
 	    sessionFactory.getCurrentSession().save(credbean);
 		sessionFactory.getCurrentSession().save(profileBean);
-		SQLQuery q1=sessionFactory.getCurrentSession().createSQLQuery("update ata_tbl_id set userID=userID+1 where genID=:genID");
-		q1.setInteger("genID", 72);
+		SQLQuery query=sessionFactory.getCurrentSession().createSQLQuery("update ata_tbl_id set userid=userid+1");
+		query.executeUpdate();
 		return "User Added Successfully with ID "+profileBean.getUserID();
 	}
 

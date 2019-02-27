@@ -19,15 +19,20 @@ public class AdminController {
 	@Autowired
 	Administrator administratorDao;
 	
+	@RequestMapping("/vehicle")
+	public String vehicle(){
+		return "VehicleMain";
+	}
+	
 	@RequestMapping("/display")
-	public String displayJsp(Model m)
+	public String addVehicle(Model m)
 	{
 		m.addAttribute("vehicleBean", new VehicleBean());
 		return "AddVehicle";
 	}
 	
 	@RequestMapping("/displayEdit")
-	public String displayEditJsp(Model m, @RequestParam("vehicleID")String vehicleID, @RequestParam("type")String type,@RequestParam("name")String name,@RequestParam("registrationNumber")String registrationNumber,@RequestParam("seatingCapacity")String seatingCapacity,@RequestParam("farePerKM")String farePerKM)
+	public String displayVehicle(Model m, @RequestParam("vehicleID")String vehicleID, @RequestParam("type")String type,@RequestParam("name")String name,@RequestParam("registrationNumber")String registrationNumber,@RequestParam("seatingCapacity")String seatingCapacity,@RequestParam("farePerKM")String farePerKM)
 	{
 		m.addAttribute("vehicleEditBean", new VehicleBean(vehicleID,name,type,registrationNumber,Integer.parseInt(seatingCapacity),Double.parseDouble(farePerKM)));
 		System.out.println(vehicleID+" "+name+" "+type+" "+registrationNumber);
@@ -35,10 +40,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/addvdb")
-	public @ResponseBody String addTodb(VehicleBean vehicleBean)
+	public String addTodb(VehicleBean vehicleBean,Model m)
 	{
-		administratorDao.addVehicle(vehicleBean);
-		return "Created";
+		String res=administratorDao.addVehicle(vehicleBean);
+		m.addAttribute("vehicle",res);
+		return "AddVehicle";
 	}
 	
 	@RequestMapping("/updatevdb")

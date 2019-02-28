@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +25,27 @@ import com.ata.util.User;
 import com.ata.util.UserImpl;
 
 @Controller
+@EnableTransactionManagement
 public class MyController {
 	
 	
 	@Autowired
 	User udao;
 	
+	@Autowired
+	Authentication auth;
+	
 	
 	
 	@RequestMapping(value="/")
-	public String login(Model m){
+	public String login(Model m,HttpSession session){
 		m.addAttribute("credentialsBean",new CredentialsBean());
 		return "index";
+	}
+	
+	@RequestMapping(value="/adminhome")
+	public String adminhome(){
+		return "Admin";
 	}
 	
 	@RequestMapping(value="/login")
@@ -51,6 +61,10 @@ public class MyController {
 		}
 		else if(s.equals("invalid")){
 			m.addAttribute("msg","Invalid Userid or Password");
+			return "index";
+		}
+		else if(s.equals("already")){
+			m.addAttribute("msg","User Already Logged-in!!!");
 			return "index";
 		}
 		return null;
@@ -78,8 +92,13 @@ public class MyController {
 		return "Show";
 	}
 	
-	
-	
-	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session,Model m){
+		ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
+		udao.logout(profileBean.getUserID());
+		session.setAttribute("user", null);
+		m.addAttribute("logoutmsg","Logged Out Successfully!");
+		return "index";
+	}
 	
 }

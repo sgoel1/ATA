@@ -17,7 +17,7 @@
 		<h1>Login</h1>
 	<div id="background">	
 	<form action="login" method="post">
-		<h3 style="color:red;">${msg}</h3><br>
+		<h3 style="color:red;">${msg}${logoutmsg}</h3><br>
 		<input type="text" name="userID" placeholder="Username" class="textbox" required/><br>
 		<input type="password" name="password" placeholder="Password" class="textbox" required/><br><br>
 		&nbsp;&nbsp;<input type="checkbox" name="checkbox"><strong style="color: white;">Remember me on this computer!</strong><br><br>

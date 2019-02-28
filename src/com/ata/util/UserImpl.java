@@ -34,10 +34,15 @@ public class UserImpl implements User {
 		System.out.println(credentialsBean.getUserID()+" "+credentialsBean.getPassword());
 		boolean v=authentication.authenticate(credentialsBean);
 		if(v==true){
-			credentialsBean.setUserType(authentication.authorize(credentialsBean.getUserID()));
-			credentialsBean.setLoginStatus(1);
-			sessionFactory.getCurrentSession().update(credentialsBean);
-			return credentialsBean.getUserType();
+			//String val=authentication.authorize(credentialsBean.getUserID());
+			//if(val.equals("valid")){
+				CredentialsBean bean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, credentialsBean.getUserID());
+				bean.setLoginStatus(1);
+				sessionFactory.getCurrentSession().update(bean);
+			    return bean.getUserType();
+		//	}
+			    //else 
+				//return "already"  // here 'already' will come in case user is alredy loggedin
 		}
 		return "invalid";
 	}
@@ -49,7 +54,7 @@ public class UserImpl implements User {
 		CredentialsBean credentialsBean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class,userId);
 		if(credentialsBean!=null){
 			credentialsBean.setLoginStatus(0);
-			sessionFactory.getCurrentSession().save(credentialsBean);
+			sessionFactory.getCurrentSession().update(credentialsBean);
 			return true;
 		}
 		return false;
@@ -74,7 +79,7 @@ public class UserImpl implements User {
 	    CredentialsBean credbean=new CredentialsBean();
 	    credbean.setUserID(s+d+val);
 	    credbean.setPassword(profileBean.getPassword());
-	    credbean.setLoginStatus(1);
+	    credbean.setLoginStatus(0);
 	    credbean.setUserType("C");
 	    sessionFactory.getCurrentSession().save(credbean);
 		sessionFactory.getCurrentSession().save(profileBean);

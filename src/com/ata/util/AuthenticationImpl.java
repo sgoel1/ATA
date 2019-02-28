@@ -15,22 +15,20 @@ public class AuthenticationImpl implements Authentication{
 
 	@Override
 	public boolean authenticate(CredentialsBean credentialsBean) {
-		ProfileBean profileBean=(ProfileBean)sessionFactory.getCurrentSession().get(ProfileBean.class,credentialsBean.getUserID());
-		if(profileBean!=null){
-			if(profileBean.getPassword().equals(credentialsBean.getPassword()))
-				return true;
-			else
-				return false;
-		}
-		return false;
+		CredentialsBean bean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, credentialsBean.getUserID());
+		if(bean!=null)
+			return true;
+		else
+			return false;
 	}
 
 	@Override
 	public String authorize(String userID) {
-		if(userID.equals("SK1000"))
-			return "A";
+		CredentialsBean credentialsBean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, userID);
+		if(credentialsBean.getLoginStatus()==1)
+			return "invalid";
 		else
-			return "C";
+			return "valid";
 	}
 
 	@Override
@@ -45,6 +43,15 @@ public class AuthenticationImpl implements Authentication{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public String checkUserType(String UserID) {
+		CredentialsBean credentialsBean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, UserID);
+		if(credentialsBean.getUserType().equals("A"))
+			return "A";
+		else
+			return "C";
 	}
 
 }

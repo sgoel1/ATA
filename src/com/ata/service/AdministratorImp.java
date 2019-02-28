@@ -205,9 +205,11 @@ public class AdministratorImp implements Administrator {
 	@Override
 	public boolean allotDriver(String reservationID, String driverID) {
 		ReservationBean reservationBean=(ReservationBean)sessionfactory.getCurrentSession().get(ReservationBean.class, reservationID);
+		System.out.println(reservationBean.getDriverID());
 		if(reservationBean!=null){
 			reservationBean.setDriverID(driverID);
 			reservationBean.setBookingStatus("1");
+			System.out.println(driverID);
 			sessionfactory.getCurrentSession().update(reservationBean);
 			return true;
 		}
@@ -222,8 +224,4 @@ public class AdministratorImp implements Administrator {
 		return list;
 	}
 }
-
-	
-	
-
 

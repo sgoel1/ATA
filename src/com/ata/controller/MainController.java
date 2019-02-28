@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ata.bean.DriverBean;
 import com.ata.bean.ReservationBean;
@@ -132,16 +133,16 @@ public class MainController {
 			return "AllotDriver";
 		}
 		
-		@RequestMapping(value="")
-		public String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
+		@RequestMapping(value="/allotDriver")
+		public @ResponseBody String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
 			boolean b=administratorImp.allotDriver(reservationID, driverID);
 			if(b==true){
-				m.addAttribute("allotd","Driver Alloted");
-				return "AllotDriver";
+				//m.addAttribute("allotd","Driver Alloted");
+				return "<h2>Driver Alloted</h2>";
 			}
 			else{
 				m.addAttribute("allotd","Driver Not Alloted");
-				return "AllotDriver";
+				return "<h2>Driver Not Alloted</h2>";
 			}
 		}
 	

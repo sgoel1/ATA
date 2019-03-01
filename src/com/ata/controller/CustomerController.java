@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ata.bean.CredentialsBean;
+import com.ata.bean.CreditCardBean;
 import com.ata.bean.ProfileBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
@@ -98,7 +100,7 @@ public class CustomerController {
 		System.out.println("source is "+source);
 		List<RouteBean> list=customerImpl.getSelectedRoutes(source);
 		m.addAttribute("RouteList", list);
-		String responsetext="<select id='destination' name='destination'>";
+		String responsetext="<select id='destination' name='destination'><option>Destination</option>";
 		for(RouteBean rb:list)
 		{
 		responsetext=responsetext+"<option value="+rb.getDestination()+" label="+rb.getDestination()+">"+"</option>";
@@ -124,7 +126,7 @@ public class CustomerController {
 	@RequestMapping(value="/bookvehicle")
 	public String bookvehicle(VehicleBean vehicleBean,RouteBean routeBean,ReservationBean reservationBean,@RequestParam("journeydate")String strJourneyDate,HttpSession session,Model m){
 		System.out.println("inside bookvehicle");
-		ProfileBean bean=(ProfileBean)session.getAttribute("user");
+		CredentialsBean bean=(CredentialsBean)session.getAttribute("user");
 		reservationBean.setUserID(bean.getUserID());
 		reservationBean.setBookingDate(new Date());
 		
@@ -133,13 +135,38 @@ public class CustomerController {
 		reservationBean.setRouteID(RouteID);
 		
 		VehicleBean vbean=admin.viewVehicle(vehicleBean.getVehicleID());
-	
+		System.out.println(vbean.getFarePerKM()+"hjhkjh "+rbean.getDistance());
 		double fare=vbean.getFarePerKM()*rbean.getDistance();
 		reservationBean.setBookingStatus("0");
 		reservationBean.setTotalFare(fare);
 		
 		String s=customerImpl.bookVehicle(reservationBean);
 		m.addAttribute("rbean",s);
-		return "makepayment";
+		return "makePayment";
 	}
+	
+	@RequestMapping("/makePayment")
+	public String makePayment(Model m)
+	{
+		return "MakePayment";
+	}
+	
+	@RequestMapping("/checkPayment")
+	public String checkPayment(@RequestParam("creditcard")String creditcard,@RequestParam("validfrom")String validfrom,@RequestParam("validto")String validto,@RequestParam("balance")String balance,HttpSession httpSession)
+	{
+		String userID="";
+		ProfileBean profileBean=(ProfileBean)httpSession.getAttribute("user");
+	    userID=profileBean.getUserID();
+		CreditCardBean payment=new CreditCardBean(creditcard, validfrom, validto, Integer.parseInt(balance),"PA1000");
+		customerImpl.makePayment(payment);
+		return "";
+	}
+	@RequestMapping(value="/deleteboooking",method=RequestMethod.GET)
+	public String delete(@RequestParam("reservationID") String reservationID,Model m)
+	{	
+		customerImpl.cancelBooking("", reservationID);
+		m.addAttribute("message2","Deleted");
+		return "Customer";	
+		}
+	
 }

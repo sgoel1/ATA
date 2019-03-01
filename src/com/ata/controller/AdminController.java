@@ -1,5 +1,6 @@
 package com.ata.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ata.bean.ReservationBean;
 import com.ata.bean.VehicleBean;
 import com.ata.service.Administrator;
 
@@ -69,5 +71,38 @@ public class AdminController {
 		m.addAttribute("vehicleList", list);
 		//System.out.println(list.get(1).getName());
 		return "Navigation";
+	}
+	
+	@RequestMapping("/viewBooking")
+	public @ResponseBody String viewBookingDetails(@RequestParam("source")String source, @RequestParam("destination")String destination, @RequestParam("journeydate")String journeydate)
+	{
+		List<ReservationBean> list=administratorDao.viewBookingDetails(Date.valueOf(journeydate), source, destination);
+		String responsetext="<table id='customers'>";
+		
+		responsetext=responsetext+"<tr><th>ReservationID</th>";
+		responsetext=responsetext+"<th>Vehicle ID</th>";
+		responsetext=responsetext+"<th>UserID</th>";
+		responsetext=responsetext+"<th>TotalFare</th>";
+		responsetext=responsetext+"<th>Booking Status</th>";
+		responsetext=responsetext+"<th>Boarding Point</th>";
+		responsetext=responsetext+"<th>Drop Point</th></tr>";
+		for(ReservationBean rb:list)
+		{
+		responsetext=responsetext+"<tr><td>"+rb.getReservationID()+"</td>";							
+		responsetext=responsetext+"<td>"+rb.getVehicleID()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getUserID()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getTotalFare()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getBookingStatus()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getBoardingPoint()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getDropPoint()+"</td></tr>";
+		}
+		responsetext=responsetext+"</table>";
+		return responsetext;
+	}
+	
+	@RequestMapping("/viewBookingPage")
+	public String viewBookingPage(Model m)
+	{
+		return "ViewBookingAdmin";
 	}
 }

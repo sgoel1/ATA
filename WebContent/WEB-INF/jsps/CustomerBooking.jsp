@@ -28,7 +28,7 @@
 <td>${item.dropPoint}</td>
 <td>${item.totalFare}</td>
 <td><a href="print?reservationID=${item.reservationID}" > Print </a></td>
-<td><a href="delete?reservationID=${item.reservationID}"> Delete </a></td>
+<td><a href="deleteboooking?reservationID=${item.reservationID}"> Delete </a></td>
 </tr>
 </c:forEach>
 

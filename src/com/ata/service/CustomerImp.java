@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.stereotype.Repository;
 
+import com.ata.bean.CreditCardBean;
+import com.ata.bean.DriverBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
@@ -40,9 +42,13 @@ public class CustomerImp implements Customer {
 
 	@Override
 	public boolean cancelBooking(String userID, String reservationID) {
-		// TODO Auto-generated method stub
-		return false;
+		ReservationBean rb=(ReservationBean)sessionfactory.getCurrentSession().get(ReservationBean.class, reservationID);
+		if(rb!=null){
+			sessionfactory.getCurrentSession().delete(rb);
+		}
+		return true;
 	}
+	
 
 	@Override
 	public List<ReservationBean> viewBookingDetails(String userID) {
@@ -93,6 +99,14 @@ public class CustomerImp implements Customer {
 		String routeID=(String)(q.list().get(0));
 		System.out.println(routeID);
 		return routeID;
+	}
+	
+
+	@Override
+	@Transactional
+	public int makePayment(CreditCardBean payment) {
+		sessionfactory.getCurrentSession().save(payment);
+		return 0;
 	}
 
 }

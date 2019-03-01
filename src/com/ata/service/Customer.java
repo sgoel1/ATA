@@ -3,6 +3,7 @@ package com.ata.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ata.bean.CreditCardBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
@@ -17,5 +18,6 @@ public interface Customer {
 	ReservationBean printBookingDetails(String reservationID);
 	ArrayList<RouteBean> getSelectedRoutes(String source);
 	String getRouteID(String source,String destination);
+	int makePayment(CreditCardBean payment);
 }
 

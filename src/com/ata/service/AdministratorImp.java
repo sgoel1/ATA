@@ -1,13 +1,16 @@
 package com.ata.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -228,6 +231,19 @@ public class AdministratorImp implements Administrator {
 	public RouteBean getRoute(String routeID) {
 		RouteBean routeBean=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class, routeID);
 		return routeBean;
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<ReservationBean> viewBookingDetails(Date journeyDate,
+			String source, String destination) {
+		Criteria crit = sessionfactory.getCurrentSession().createCriteria(RouteBean.class).add(Restrictions.eq("source", source)).add(Restrictions.eq("destination", destination));
+		ArrayList<RouteBean> result = (ArrayList<RouteBean>) crit.list();
+		String RouteId=result.get(0).getRouteID();
+		Criteria crit1 = sessionfactory.getCurrentSession().createCriteria(ReservationBean.class).add(Restrictions.eq("journeyDate", journeyDate)).add(Restrictions.eq("routeID", RouteId));
+		ArrayList<ReservationBean> result1 = (ArrayList<ReservationBean>) crit1.list();
+		System.out.println(result1.get(0).getUserID()+" "+result1.get(0).getTotalFare());
+		return result1;
 	}
 }
 

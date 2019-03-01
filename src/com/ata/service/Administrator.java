@@ -46,7 +46,6 @@ public interface Administrator {
 	
 	public List<ReservationBean> viewDetails();
 
-	// ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String
-	// source, String destination);
+	ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination);
 
 }

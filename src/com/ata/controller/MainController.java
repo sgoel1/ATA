@@ -58,7 +58,7 @@ public class MainController {
 	{	System.out.println("=========="+driverBean.getDriverID());
 		administratorImp.modifyDriver(driverBean);
 		m.addAttribute("message1","Modified");
-		return "Show";
+		return "Admin";
 	}
 	//=============DELETING DRIVER============
 	
@@ -69,7 +69,7 @@ public class MainController {
 	{	
 		administratorImp.deleteDriver(driverID);
 		m.addAttribute("message2","Deleted");
-		return "Show";	
+		return "Admin";	
 		}
 	@RequestMapping(value="/showDriver",method=RequestMethod.GET)
 	public String showAllDriver(DriverBean driverBean,Model m)
@@ -120,7 +120,7 @@ public class MainController {
 		{	
 			administratorImp.deleteRoute(routeID);
 			m.addAttribute("message2","Deleted");
-			return "RouteMain";	
+			return "Admin";	
 			}
 		//=============SHOW ALL ROUTES==========
 		@RequestMapping(value="/showRoute",method=RequestMethod.GET)

@@ -37,6 +37,8 @@ public interface Administrator {
 	RouteBean viewRoute(String routeID);
 
 	boolean modifyRoute(RouteBean routeBean);
+	
+	public RouteBean getRoute(String routeID);
 
 	public List<VehicleBean> showAllVehicles();
 

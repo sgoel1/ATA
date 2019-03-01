@@ -223,5 +223,11 @@ public class AdministratorImp implements Administrator {
 		List<ReservationBean> list=q.list();
 		return list;
 	}
+
+	@Override
+	public RouteBean getRoute(String routeID) {
+		RouteBean routeBean=(RouteBean)sessionfactory.getCurrentSession().get(RouteBean.class, routeID);
+		return routeBean;
+	}
 }
 

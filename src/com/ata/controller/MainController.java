@@ -2,6 +2,8 @@ package com.ata.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +16,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ata.bean.DriverBean;
+import com.ata.bean.ProfileBean;
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
+import com.ata.bean.VehicleBean;
 import com.ata.service.Administrator;
+import com.ata.service.Customer;
 
 @Controller
 public class MainController {
 	@Autowired  
 	Administrator administratorImp;
+	
+	@Autowired
+	Customer customerImp;
+	
 	//==========ADDING NEW DRIVER======
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String helloUser1(Model m)
@@ -145,5 +154,22 @@ public class MainController {
 				return "<h2>Driver Not Alloted</h2>";
 			}
 		}
+		
+		//====================View Reservations Customer=================
+		@RequestMapping(value="/viewresv")
+		public String viewresv(HttpSession session,Model m){
+			ProfileBean pbean=(ProfileBean)session.getAttribute("user");
+			//RouteBean rbean=(RouteBean)session.getAttribute("");
+			//VehicleBean vbean=(VehicleBean)session.getAttribute("");
+			List<ReservationBean> li=customerImp.viewBookingDetails(pbean.getUserID());
+			//List<ReservationBean> li1=customerImp.viewBookingDetails(rbean.getRouteID());
+			//List<ReservationBean> li2=customerImp.viewBookingDetails(vbean.getVehicleID());
+			m.addAttribute("reslist",li);
+			//m.addAttribute("routelist",li1);
+			//m.addAttribute("vehlist",li2);
+			return "CustomerBooking";
+		}
+		
 	
+		
 }

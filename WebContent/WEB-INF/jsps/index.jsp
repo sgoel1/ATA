@@ -16,7 +16,7 @@
 	<div id="backgroundborder">
 		<h1>Login</h1>
 	<div id="background">	
-	<form action="login" method="post">
+	<form action="login" >
 		<h3 style="color:red;">${msg}${logoutmsg}</h3><br>
 		<input type="text" name="userID" placeholder="Username" class="textbox" required/><br>
 		<input type="password" name="password" placeholder="Password" class="textbox" required/><br><br>

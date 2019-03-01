@@ -1,6 +1,7 @@
 package com.ata.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ata.bean.ReservationBean;
 import com.ata.bean.RouteBean;
@@ -12,7 +13,9 @@ public interface Customer {
 	ArrayList<RouteBean> viewAllRoutes();
 	String bookVehicle(ReservationBean reservationBean);
 	boolean cancelBooking(String userID, String reservationID);
-	ReservationBean viewBookingDetails(String reservationID);
+	List<ReservationBean> viewBookingDetails(String userID);
 	ReservationBean printBookingDetails(String reservationID);
+	ArrayList<RouteBean> getSelectedRoutes(String source);
+	String getRouteID(String source,String destination);
 }
 

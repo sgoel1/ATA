@@ -7,11 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
-	Source<input type="text" id="source">
-	Destination<input type="text" id="destination">
-	
-</form>
+<h1>${rbean}</h1>
 
 </body>
 </html>

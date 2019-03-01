@@ -48,9 +48,15 @@ public class MyController {
 		return "Admin";
 	}
 	
+	@RequestMapping(value="/customerhome")
+	public String customerhome(){
+		return "Customer";
+	}
+	
 	@RequestMapping(value="/login")
-	public String loginuser(CredentialsBean credentialsBean,HttpSession session,Model m){
+	public String loginuser(CredentialsBean credentialsBean, HttpSession session,Model m){
 		String s=udao.login(credentialsBean);
+		
 		if(s.equals("A")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
 			return "Admin";
@@ -67,6 +73,8 @@ public class MyController {
 			m.addAttribute("msg","User Already Logged-in!!!");
 			return "index";
 		}
+		
+		
 		return null;
 	}
 	
@@ -100,5 +108,6 @@ public class MyController {
 		m.addAttribute("logoutmsg","Logged Out Successfully!");
 		return "index";
 	}
+	
 	
 }

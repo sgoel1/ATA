@@ -1,32 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="login.css">
-	<title>Login Page</title>
+	
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="index.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title>ATA | Login </title>
 </head>
 <body>
-	<div id="header">
-		<div id="heading">Automation of Travel Agency</div>
-		<div id="logo"><img src="logo.png"></div>
-	<div><br><br><br><br><br><br>
-		<img src="image.jpg">
-	<div id="backgroundborder">
-		<h1>Login</h1>
-	<div id="background">	
-	<form action="login" >
-		<h3 style="color:red;">${msg}${logoutmsg}</h3><br>
-		<input type="text" name="userID" placeholder="Username" class="textbox" required/><br>
-		<input type="password" name="password" placeholder="Password" class="textbox" required/><br><br>
-		&nbsp;&nbsp;<input type="checkbox" name="checkbox"><strong style="color: white;">Remember me on this computer!</strong><br><br>
-		<input type="submit"  value="Login"  class="button"/>
-	</form>
-   </div>
-   <h3 style="text-align: center;">New User ? <a href="adduser">Register here</a></h3>
-</div>
-<div id="footer">Copyright @ 2019 YAMAHA MOTOR SOLUTIONS.All Rights reserved</div>
+	
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
+    <!-- Icon -->
+    <div class="fadeIn first">
+     	<h4>Login</h4>
+    </div>
+
+    <!-- Login Form -->
+    <form action="login" method="post">
+    	<h6 style="color:red;">${msg}${logoutmsg}</h6><br>
+      <input type="text" id="login" class="fadeIn second" name="userID" placeholder="userid" required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- New user -->
+    <div id="formFooter">
+      New User? &nbsp;<a class="underlineHover" href="adduser"> Register here</a>
+    </div>
+
+  </div>
+</div>
 </body>
 </html>

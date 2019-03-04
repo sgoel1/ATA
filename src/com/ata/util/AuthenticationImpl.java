@@ -15,6 +15,7 @@ public class AuthenticationImpl implements Authentication{
 
 	@Override
 	public boolean authenticate(CredentialsBean credentialsBean) {
+		System.out.println("========Inside authenticate method===========");
 		CredentialsBean bean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, credentialsBean.getUserID());
 		if(bean!=null)
 			return true;

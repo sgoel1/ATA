@@ -1,3 +1,4 @@
+@CHARSET "ISO-8859-1";
 #heading{
 	font-size: 40px;
 	float: right;
@@ -6,6 +7,13 @@
     border-width: 2px;
     width: 1200px;
     margin-right: 80px;
+}
+body{
+	background-color: #f2f2f2;
+}
+td{
+	font-size: 20px; 
+	font-weight: 900;
 }
 #header{
 	position: fixed;
@@ -87,10 +95,11 @@
 	width: 400px;
 	margin-left: 540px;
 	margin-top: 30px;
-	height: 670px;
+	height: 700px;
 	border-style: solid;
     border-width: 1px;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px #aaaaaa;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
     
 }

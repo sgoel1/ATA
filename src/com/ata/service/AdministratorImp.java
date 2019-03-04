@@ -1,4 +1,4 @@
-package com.ata.service;
+ package com.ata.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,8 +55,8 @@ public class AdministratorImp implements Administrator {
 
 	@Override
 	public VehicleBean viewVehicle(String vehicleID) {
-		// TODO Auto-generated method stub
-		return null;
+		VehicleBean vehicleBean=(VehicleBean)sessionfactory.getCurrentSession().get(VehicleBean.class,vehicleID);
+		return vehicleBean;
 	}
 
 	@Override

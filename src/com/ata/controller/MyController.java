@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,7 +25,6 @@ import com.ata.util.User;
 import com.ata.util.UserImpl;
 
 @Controller
-@EnableTransactionManagement
 public class MyController {
 	
 	
@@ -38,8 +37,8 @@ public class MyController {
 	
 	
 	@RequestMapping(value="/")
-	public String login(Model m,HttpSession session){
-		m.addAttribute("credentialsBean",new CredentialsBean());
+	public String login(Model m){
+		//m.addAttribute("credentialsBean",new CredentialsBean());
 		return "index";
 	}
 	
@@ -55,6 +54,7 @@ public class MyController {
 	
 	@RequestMapping(value="/login")
 	public String loginuser(CredentialsBean credentialsBean, HttpSession session,Model m){
+		System.out.println("======Inside Login Controller======");
 		String s=udao.login(credentialsBean);
 		
 		if(s.equals("A")){
@@ -73,8 +73,6 @@ public class MyController {
 			m.addAttribute("msg","User Already Logged-in!!!");
 			return "index";
 		}
-		
-		
 		return null;
 	}
 	
@@ -85,11 +83,9 @@ public class MyController {
 	}
 	
 	@RequestMapping(value="/adduserprofile",method=RequestMethod.GET)
-	public String addUserProfile(ProfileBean profileBean,Model m){
-		
-		/*if(result.hasErrors()){
-			return "signup";
-		}*/
+	public String addUserProfile(ProfileBean profileBean,@RequestParam("dateofbirth")String dob,Model m){
+		System.out.println("=========Inside Adding new profile=============");
+		profileBean.setDateOfBirth(Date.valueOf(dob));	
 		String res=udao.register(profileBean);
 		m.addAttribute("res",res);
 		return "signup";

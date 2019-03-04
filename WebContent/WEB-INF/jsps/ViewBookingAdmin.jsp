@@ -44,7 +44,7 @@ function getBooking()
 Select Source:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <select id="source" name="source" required style="margin-left: 10px;">
 	   <option value="">Source</option>
-		<option value="Delhi">Delhi</option>
+		<option value="delhi">Delhi</option>
 		<option value="Noida">Noida</option>
 		<option value="Faridabad">Faridabad</option>
 		<option value="Gurugaon">Gurgaon</option>
@@ -55,6 +55,7 @@ Select Destination:
 <select id="destination" name="destination" required style="margin-left: 10px;">
 	   <option value="">Destination</option>
 		<option value="Delhi">Delhi</option>
+		<option value="indore">indore</option>
 		<option value="Noida">Noida</option>
 		<option value="Faridabad">Faridabad</option>
 		<option value="Gurugaon">Gurgaon</option>

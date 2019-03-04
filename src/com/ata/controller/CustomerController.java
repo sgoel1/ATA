@@ -1,7 +1,9 @@
 package com.ata.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -124,11 +126,14 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/bookvehicle")
-	public String bookvehicle(VehicleBean vehicleBean,RouteBean routeBean,ReservationBean reservationBean,@RequestParam("journeydate")String strJourneyDate,HttpSession session,Model m){
+	public String bookvehicle(VehicleBean vehicleBean,RouteBean routeBean,ReservationBean reservationBean,@RequestParam("journeydate") String strJourneyDate,HttpSession session,Model m) throws ParseException{
 		System.out.println("inside bookvehicle");
-		CredentialsBean bean=(CredentialsBean)session.getAttribute("user");
+		System.out.println("Vehicle ID : "+vehicleBean.getVehicleID());
+		System.out.println("Journey Date :"+strJourneyDate);
+		ProfileBean bean=(ProfileBean)session.getAttribute("user");
 		reservationBean.setUserID(bean.getUserID());
-		reservationBean.setBookingDate(new Date());
+		reservationBean.setBookingDate(new Date(System.currentTimeMillis()));
+		reservationBean.setJourneyDate(Date.valueOf(strJourneyDate));
 		
 		String RouteID=customerImpl.getRouteID(routeBean.getSource(), routeBean.getDestination());
 		RouteBean rbean=admin.getRoute(RouteID);
@@ -142,7 +147,7 @@ public class CustomerController {
 		
 		String s=customerImpl.bookVehicle(reservationBean);
 		m.addAttribute("rbean",s);
-		return "makePayment";
+		return "MakePayment";
 	}
 	
 	@RequestMapping("/makePayment")

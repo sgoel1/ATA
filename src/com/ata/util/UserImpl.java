@@ -31,6 +31,7 @@ public class UserImpl implements User {
 	@Transactional
 	@Override
 	public String login(CredentialsBean credentialsBean) {
+		System.out.println("======Inside Login Implementation======");
 		System.out.println(credentialsBean.getUserID()+" "+credentialsBean.getPassword());
 		boolean v=authentication.authenticate(credentialsBean);
 		if(v==true){
@@ -85,7 +86,7 @@ public class UserImpl implements User {
 		sessionFactory.getCurrentSession().save(profileBean);
 		SQLQuery query=sessionFactory.getCurrentSession().createSQLQuery("update ata_tbl_id set userid=userid+1");
 		query.executeUpdate();
-		return "User Added Successfully with ID "+profileBean.getUserID();
+		return "Your Login-ID is : "+profileBean.getUserID();
 	}
 
 	@Transactional

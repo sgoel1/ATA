@@ -125,7 +125,7 @@ public class CustomerController {
 		return "ViewVehicles";
 	}
 	
-	@RequestMapping(value="/bookvehicle")
+	@RequestMapping(value="/bookvehicle",method=RequestMethod.POST)
 	public String bookvehicle(VehicleBean vehicleBean,RouteBean routeBean,ReservationBean reservationBean,@RequestParam("journeydate") String strJourneyDate,HttpSession session,Model m) throws ParseException{
 		System.out.println("inside bookvehicle");
 		System.out.println("Vehicle ID : "+vehicleBean.getVehicleID());
@@ -140,21 +140,20 @@ public class CustomerController {
 		reservationBean.setRouteID(RouteID);
 		
 		VehicleBean vbean=admin.viewVehicle(vehicleBean.getVehicleID());
-		System.out.println(vbean.getFarePerKM()+"hjhkjh "+rbean.getDistance());
 		double fare=vbean.getFarePerKM()*rbean.getDistance();
 		reservationBean.setBookingStatus("0");
 		reservationBean.setTotalFare(fare);
 		
 		String s=customerImpl.bookVehicle(reservationBean);
 		m.addAttribute("rbean",s);
-		return "MakePayment";
+		return "MakePayment1";
 	}
 	
-	@RequestMapping("/makePayment")
+	/*@RequestMapping("/makePayment")
 	public String makePayment(Model m)
 	{
 		return "MakePayment";
-	}
+	}*/
 	
 	@RequestMapping("/checkPayment")
 	public String checkPayment(@RequestParam("creditcard")String creditcard,@RequestParam("validfrom")String validfrom,@RequestParam("validto")String validto,@RequestParam("balance")String balance,HttpSession httpSession)
@@ -173,5 +172,6 @@ public class CustomerController {
 		m.addAttribute("message2","Deleted");
 		return "Customer";	
 		}
+	
 	
 }

@@ -118,7 +118,7 @@
 
 </head>
 <body>
-	<form action="bookvehicle">
+	<form action="bookvehicle" method="post">
 	 <h3 align="center">Select Source & Destination</h3>
 	<div align="center">
 	<label >Select Source</label>

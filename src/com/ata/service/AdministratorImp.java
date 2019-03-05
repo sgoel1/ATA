@@ -2,7 +2,9 @@
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -206,12 +208,20 @@ public class AdministratorImp implements Administrator {
 	}
 
 	@Override
+	@Transactional
+	public ArrayList<RouteBean> getSelectedRoutes(String source) {
+		Criteria crit = sessionfactory.getCurrentSession().createCriteria(RouteBean.class).add(Restrictions.eq("source", source));
+		ArrayList<RouteBean> result = (ArrayList<RouteBean>) crit.list();
+		return result;
+	}
+	
+	@Override
 	public boolean allotDriver(String reservationID, String driverID) {
 		ReservationBean reservationBean=(ReservationBean)sessionfactory.getCurrentSession().get(ReservationBean.class, reservationID);
 		System.out.println(reservationBean.getDriverID());
 		if(reservationBean!=null){
 			reservationBean.setDriverID(driverID);
-			reservationBean.setBookingStatus("1");
+			reservationBean.setBookingStatus("Successful");
 			System.out.println(driverID);
 			sessionfactory.getCurrentSession().update(reservationBean);
 			return true;
@@ -222,7 +232,7 @@ public class AdministratorImp implements Administrator {
 	@Override
 	public List<ReservationBean> viewDetails() {
 		Query q=sessionfactory.getCurrentSession().createQuery("from ReservationBean where bookingstatus=:bookingstatus");
-		q.setParameter("bookingstatus", "0");
+		q.setParameter("bookingstatus", "Payment Done");
 		List<ReservationBean> list=q.list();
 		return list;
 	}
@@ -240,10 +250,30 @@ public class AdministratorImp implements Administrator {
 		Criteria crit = sessionfactory.getCurrentSession().createCriteria(RouteBean.class).add(Restrictions.eq("source", source)).add(Restrictions.eq("destination", destination));
 		ArrayList<RouteBean> result = (ArrayList<RouteBean>) crit.list();
 		String RouteId=result.get(0).getRouteID();
-		Criteria crit1 = sessionfactory.getCurrentSession().createCriteria(ReservationBean.class).add(Restrictions.eq("journeyDate", journeyDate)).add(Restrictions.eq("routeID", RouteId));
+		Criteria crit1 = sessionfactory.getCurrentSession().createCriteria(ReservationBean.class).add(Restrictions.eq("journeyDate", journeyDate)).add(Restrictions.eq("routeID", RouteId)).add(Restrictions.eq("bookingStatus", "Successful"));
 		ArrayList<ReservationBean> result1 = (ArrayList<ReservationBean>) crit1.list();
 		System.out.println(result1.get(0).getUserID()+" "+result1.get(0).getTotalFare());
 		return result1;
+	}
+	
+	@Override
+	@Transactional
+	public List getAllSource() {
+		 Criteria crit =sessionfactory.getCurrentSession().createCriteria(RouteBean.class);
+		 ArrayList<RouteBean> result = (ArrayList<RouteBean>) crit.list();
+		 Set<String> set = new HashSet();
+		 for(RouteBean rb: result)
+		 {
+			 set.add(rb.getSource());
+		 }
+		 int n = set.size(); 
+		 List<String> aList = new ArrayList<String>(n); 
+		 for (String x : set) 
+		 {
+		 aList.add(x); 
+		 // System.out.println(""+x);
+		 }
+		return aList;
 	}
 }
 

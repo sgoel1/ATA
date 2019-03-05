@@ -5,6 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script>
+function myFunction() {
+  confirm("Are you sure you want to cancel this reservation?");
+}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,6 +22,7 @@
 <td>Boarding Point</td>
 <td>DropPoint</td>
 <td>Total Fare</td>
+<td>Booking Status</td>
 </tr>
 <c:forEach items="${reslist}" var="item" >
 <tr>
@@ -27,8 +33,9 @@
 <td>${item.boardingPoint}</td>
 <td>${item.dropPoint}</td>
 <td>${item.totalFare}</td>
+<td>${item.bookingStatus}</td>
 <td><a href="print?reservationID=${item.reservationID}" > Print </a></td>
-<td><a href="deleteboooking?reservationID=${item.reservationID}"> Delete </a></td>
+<td><a href="deleteboooking?reservationID=${item.reservationID}" onclick="myFunction()"> Delete </a></td>
 </tr>
 </c:forEach>
 

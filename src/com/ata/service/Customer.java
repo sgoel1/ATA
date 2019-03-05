@@ -18,6 +18,8 @@ public interface Customer {
 	ReservationBean printBookingDetails(String reservationID);
 	ArrayList<RouteBean> getSelectedRoutes(String source);
 	String getRouteID(String source,String destination);
-	int makePayment(CreditCardBean payment);
+	String makePayment(CreditCardBean payment);
+	String updateReservation(String reservationID);
+	List getAllSource();
 }
 

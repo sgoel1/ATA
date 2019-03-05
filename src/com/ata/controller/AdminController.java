@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ata.bean.ReservationBean;
+import com.ata.bean.RouteBean;
 import com.ata.bean.VehicleBean;
 import com.ata.service.Administrator;
 
@@ -73,6 +75,20 @@ public class AdminController {
 		return "Navigation";
 	}
 	
+	@RequestMapping(value="/viewdestination",method=RequestMethod.GET)
+	public @ResponseBody String showdestination(Model m, @RequestParam("source")String source)
+	{
+		List<RouteBean> list=administratorDao.getSelectedRoutes(source);
+		m.addAttribute("RouteList", list);
+		String responsetext="<select id='destination'><option>Destination</option>";
+		for(RouteBean rb:list)
+		{
+		responsetext=responsetext+"<option value='"+rb.getDestination()+"'>"+rb.getDestination()+"</option>";
+		}
+		responsetext=responsetext+"</select>";
+		return responsetext;
+	}
+	
 	@RequestMapping("/viewBooking")
 	public @ResponseBody String viewBookingDetails(@RequestParam("source")String source, @RequestParam("destination")String destination, @RequestParam("journeydate")String journeydate)
 	{
@@ -103,6 +119,9 @@ public class AdminController {
 	@RequestMapping("/viewBookingPage")
 	public String viewBookingPage(Model m)
 	{
+		List<String> result=administratorDao.getAllSource();
+		//System.out.println(result.get(0)+" "+result.get(1));
+		m.addAttribute("SourceList", result);
 		return "ViewBookingAdmin";
 	}
 }

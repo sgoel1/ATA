@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -124,10 +125,9 @@
 	<label >Select Source</label>
 	<select id="source" name="source" onchange="sendreqsource(this.value)" required style="margin-left: 10px;">
 	   <option value="">Source</option>
-		<option value="Delhi">Delhi</option>
-		<option value="Noida">Noida</option>
-		<option value="Faridabad">Faridabad</option>
-		<option value="Gurugaon">Gurgaon</option>
+				<c:forEach items="${SourceList}" var="item">
+					<option value="${item}">${item}</option>
+				</c:forEach>
 	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label>Enter Pickup Point</label>&nbsp;&nbsp;<input type="text" name="boardingPoint" id="pickup" required><br><br><br>
 	<label >Select Destination</label>&nbsp;&nbsp;<div id="mydiv1"></div><br><br><label>Enter Drop point</label>&nbsp;&nbsp;<input type="text" name="dropPoint" id="drop" required><br><br><br>

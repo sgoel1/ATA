@@ -28,6 +28,7 @@
     </ul>
   </div>
 </nav>
+<h3 align="center" style="color:red;">${message2}</h3>
 <h1 align="center">Welcome Customer</h1>
 
 </body>

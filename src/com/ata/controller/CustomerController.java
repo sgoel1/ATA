@@ -111,14 +111,19 @@ public class CustomerController {
 		return responsetext;
 	}
 	
-	@RequestMapping("/viewvehicles")
+
+	/*@RequestMapping("/viewvehicles")
 	public String showVehiclesByseat(Model m)
 	{
+		List<String> result=customerImpl.getAllSource();
+		m.addAttribute("SourceList", result);
 		return "ViewVehicles";
-	}
+	}*/
 	
 	@RequestMapping(value="/bookv")
 	public String bookveh(Model m){
+		List<String> result=customerImpl.getAllSource();
+		m.addAttribute("SourceList", result);
 		m.addAttribute("vehicleBean",new VehicleBean());
 		m.addAttribute("routeBean",new RouteBean());
 		m.addAttribute("reservationBean",new ReservationBean());
@@ -141,11 +146,11 @@ public class CustomerController {
 		
 		VehicleBean vbean=admin.viewVehicle(vehicleBean.getVehicleID());
 		double fare=vbean.getFarePerKM()*rbean.getDistance();
-		reservationBean.setBookingStatus("0");
+		reservationBean.setBookingStatus("Pending");
 		reservationBean.setTotalFare(fare);
 		
-		String s=customerImpl.bookVehicle(reservationBean);
-		m.addAttribute("rbean",s);
+		String resID=customerImpl.bookVehicle(reservationBean);
+		m.addAttribute("reservationDetail",reservationBean);
 		return "MakePayment1";
 	}
 	
@@ -156,22 +161,34 @@ public class CustomerController {
 	}*/
 	
 	@RequestMapping("/checkPayment")
-	public String checkPayment(@RequestParam("creditcard")String creditcard,@RequestParam("validfrom")String validfrom,@RequestParam("validto")String validto,@RequestParam("balance")String balance,HttpSession httpSession)
+	public String checkPayment(@RequestParam("resid")String resid,@RequestParam("creditcard")String creditcard,@RequestParam("validfrom")String validfrom,@RequestParam("validto")String validto,@RequestParam("balance")String balance,HttpSession httpSession,Model m)
 	{
-		String userID="";
 		ProfileBean profileBean=(ProfileBean)httpSession.getAttribute("user");
-	    userID=profileBean.getUserID();
-		CreditCardBean payment=new CreditCardBean(creditcard, validfrom, validto, Integer.parseInt(balance),"PA1000");
-		customerImpl.makePayment(payment);
-		return "";
+	    String userID=profileBean.getUserID();
+		CreditCardBean payment=new CreditCardBean(creditcard, validfrom, validto, Double.parseDouble(balance),userID);
+		String result=customerImpl.makePayment(payment);
+		if(result.equals("Payment Successful")){
+			customerImpl.updateReservation(resid);
+			m.addAttribute("paymentSuccess",result);
+		}
+		else{
+			m.addAttribute("paymentInvalid",result);
+		}
+		return "MakePayment1";
 	}
+	
 	@RequestMapping(value="/deleteboooking",method=RequestMethod.GET)
 	public String delete(@RequestParam("reservationID") String reservationID,Model m)
 	{	
 		customerImpl.cancelBooking("", reservationID);
-		m.addAttribute("message2","Deleted");
+		m.addAttribute("message2","Reservation Deleted");
 		return "Customer";	
-		}
+	}
 	
-	
+	@RequestMapping(value="/print",method=RequestMethod.GET)
+	public String printBookingDetail(@RequestParam("reservationID")String reservationID,Model m){
+		ReservationBean reservationBean=customerImpl.printBookingDetails(reservationID);
+		m.addAttribute("reservationBean",reservationBean);
+		return "PrintReservation";
+	}
 }

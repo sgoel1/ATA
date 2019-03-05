@@ -48,4 +48,8 @@ public interface Administrator {
 
 	ArrayList<ReservationBean> viewBookingDetails(Date journeyDate, String source, String destination);
 
+	List getAllSource();
+
+	ArrayList<RouteBean> getSelectedRoutes(String source);
+
 }

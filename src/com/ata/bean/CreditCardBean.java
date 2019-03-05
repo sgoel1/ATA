@@ -1,7 +1,5 @@
 package com.ata.bean;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,7 +12,7 @@ public class CreditCardBean {
 		String creditcardnumber;
 		String validfrom;
 		String validto;
-		int creditbalance;
+		double creditbalance;
 		String userid;
 		public String getCreditcardnumber() {
 			return creditcardnumber;
@@ -34,8 +32,9 @@ public class CreditCardBean {
 		public void setValidto(String validto) {
 			this.validto = validto;
 		}
+		public CreditCardBean(){}
 		public CreditCardBean(String creditcardnumber, String validfrom,
-				String validto, int creditbalance, String userid) {
+				String validto, double creditbalance, String userid) {
 			super();
 			this.creditcardnumber = creditcardnumber;
 			this.validfrom = validfrom;
@@ -43,11 +42,11 @@ public class CreditCardBean {
 			this.creditbalance = creditbalance;
 			this.userid = userid;
 		}
-		public int getCreditbalance() {
+		public double getCreditbalance() {
 			return creditbalance;
 		}
-		public void setCreditbalance(int creditbalance) {
-			this.creditbalance = creditbalance;
+		public void setCreditbalance(double d) {
+			this.creditbalance = d;
 		}
 		public String getUserid() {
 			return userid;

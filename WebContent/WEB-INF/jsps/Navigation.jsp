@@ -40,7 +40,12 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -49,7 +54,17 @@
   </div>
 </nav>
 <h1></h1>
-	<table border="1">
+	<table border="2" class="table table-striped">
+	<tr>
+	<td>Vehicle Id</td>
+	<td>Vehicle Type</td>
+	<td>Name</td>
+	<td>Registration Number</td>
+	<td>Seating Capacity</td>
+	<td>Fare Per KM</td>
+	<td>Edit</td>
+	<td>Delete</td>
+	</tr>
 	<c:forEach items="${vehicleList}" var="item">
 	<tr>
 	<td>${item.vehicleID}</td>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,7 +68,13 @@ function allotDriver(reservationid, driverid)
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -77,7 +82,7 @@ function allotDriver(reservationid, driverid)
     </ul>
   </div>
 </nav>
-	<table border="2">
+	<table border="2" class="table table-striped">
 		<tr>
 			<td>Reservation Id</td>
 			<td>userID</td>
@@ -86,6 +91,7 @@ function allotDriver(reservationid, driverid)
 			<td>Journey Date</td>
 			<td>Total Fare</td>
 			<td>Select Driver</td>
+			<td>Allot Driver</td>
 		</tr>
 
 		<c:forEach items="${ab}" var="res">

@@ -39,7 +39,12 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -50,7 +55,7 @@
 
 
 
-<table>
+<table class="table table-sm table-dark">
 <form action="addroute">
 <tr><td>source</td><td><input type="text" name="source"></td></tr>
 <tr><td>destination</td><td><input type="text" name="destination"></td></tr>

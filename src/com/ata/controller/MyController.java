@@ -64,11 +64,13 @@ public class MyController {
 		
 		if(s.equals("A")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
+			session.setAttribute("usertype", "Admin");
 			session.setMaxInactiveInterval(1000);
 			return "Admin";
 		}
 		else if(s.equals("C")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
+			session.setAttribute("usertype", "Customer");
 			session.setMaxInactiveInterval(1000);
 			return "Customer";
 		}

@@ -52,6 +52,11 @@ public class MyController {
 		return "Customer";
 	}
 	
+	@RequestMapping(value="/viewProfile")
+	public String profile(){
+		return "Profile";
+	}
+	
 	@RequestMapping(value="/login")
 	public String loginuser(CredentialsBean credentialsBean, HttpSession session,Model m){
 		System.out.println("======Inside Login Controller======");
@@ -59,10 +64,12 @@ public class MyController {
 		
 		if(s.equals("A")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
+			session.setMaxInactiveInterval(1000);
 			return "Admin";
 		}
 		else if(s.equals("C")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
+			session.setMaxInactiveInterval(1000);
 			return "Customer";
 		}
 		else if(s.equals("invalid")){

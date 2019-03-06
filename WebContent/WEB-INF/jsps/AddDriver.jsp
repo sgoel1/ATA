@@ -43,7 +43,13 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -54,7 +60,7 @@
 
 <h1>${message}</h1>
 	<f:form action="addDriver" commandName="driverBean" method="get">
-		<table>
+		<table class="table table-sm table-dark">>
 			<tr>
 				<td>DriverName</td>
 				<td><f:input path="name" /> <f:errors path="name"

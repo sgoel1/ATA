@@ -39,7 +39,12 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -49,7 +54,7 @@
 </nav>
 <form action="modifiedRoute" method="get">
 
-<table>
+<table class="table table-bordered">
 <tr><td>Route ID</td><td><input type="hidden" name="routeID" value=${route.routeID}><input type="text" name="rID" value=${route.routeID} disabled></td></tr>
 <tr><td>Source</td><td><input type="text" name="source" value=${route.source}></td></tr>
 <tr><td>Destination</td><td><input type="text" name="destination" value=${route.destination}></td></tr>

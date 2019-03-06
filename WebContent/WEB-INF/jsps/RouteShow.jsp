@@ -40,7 +40,12 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -48,13 +53,15 @@
     </ul>
   </div>
 </nav>
-<table border="2">
+<table border="2" class="table table-striped">
 <tr>
 <td>Route Id</td>
 <td>Source</td>
 <td>destination</td>
 <td>distance</td>
 <td>travelDuration</td>
+<td>Edit</td>
+<td>Delete</td>
 </tr>
 <c:forEach items="${rb}" var="item" >
 <tr>
@@ -63,7 +70,6 @@
 <td>${item.destination}</td>
 <td>${item.distance}</td>
 <td>${item.travelDuration}</td>
-
 <td><a href="modifyRoute?routeID=${item.routeID}" > Edit </a></td>
 <td><a href="deleteRoute?routeID=${item.routeID}"> Delete </a></td>
 </tr>

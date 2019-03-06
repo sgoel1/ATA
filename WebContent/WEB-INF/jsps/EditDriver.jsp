@@ -39,7 +39,13 @@
         </ul>
       </li>
       
-      <li><a href="allotdriver">Allot Driver</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -49,7 +55,7 @@
 </nav>
 <form action="modified" method="get">
 
-<table>
+<table class="table table-sm table-dark">
 <tr><td>Driver ID</td><td><input type="hidden" name="driverID" value=${driver.driverID}><input type="text" name="dID" value=${driver.driverID} disabled></td></tr>
 <tr><td>Name</td><td><input type="text" name="name" value=${driver.name}></td></tr>
 <tr><td>Street</td><td><input type="text" name="street" value=${driver.street}></td></tr>

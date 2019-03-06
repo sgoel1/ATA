@@ -7,7 +7,7 @@
 <title>ATA | SignUp</title>
 </head>
 <body>
-	<div id="backgroundborder1" align="center">
+	<div id="backgroundborder1">
 		<h1>Signup</h1>
 		<h3 style="color: red;">${res}</h3>
 		<form action="adduserprofile" method="get">

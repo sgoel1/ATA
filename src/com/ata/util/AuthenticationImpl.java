@@ -17,8 +17,12 @@ public class AuthenticationImpl implements Authentication{
 	public boolean authenticate(CredentialsBean credentialsBean) {
 		System.out.println("========Inside authenticate method===========");
 		CredentialsBean bean=(CredentialsBean)sessionFactory.getCurrentSession().get(CredentialsBean.class, credentialsBean.getUserID());
-		if(bean!=null)
-			return true;
+		if(bean!=null){
+			if(bean.getPassword().equals(credentialsBean.getPassword()))
+				return true;
+			else
+				return false;
+		}
 		else
 			return false;
 	}

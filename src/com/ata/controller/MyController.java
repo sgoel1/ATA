@@ -4,9 +4,12 @@ package com.ata.controller;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,12 +112,18 @@ public class MyController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpSession session,Model m){
-		ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
-		udao.logout(profileBean.getUserID());
-		session.setAttribute("user", null);
-		m.addAttribute("logoutmsg","Logged Out Successfully!");
-		return "index";
+	public String logout(HttpSession session,Model m,HttpServletResponse response) throws IOException{
+		try{
+			ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
+			udao.logout(profileBean.getUserID());
+			session.setAttribute("user", null);
+			m.addAttribute("logoutmsg","Logged Out Successfully!");
+			return "index";
+		}
+		catch(Exception e){
+			return "Error";
+		}
+		
 	}
 	
 	

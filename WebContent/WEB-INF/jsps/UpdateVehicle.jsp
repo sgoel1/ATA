@@ -78,9 +78,29 @@ pageEncoding="ISO-8859-1"%>
 			<td style="font-size: 20px; font-weight: 900;">Fare Per KM:</td>
 			<td><f:input type="text" path="farePerKM" class="textbox1" /></td>
 		<tr>
-			<td><f:button value="Update Vehicle" class="button1">Update Vehicle</f:button></td>
+			<td><f:button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Vehicle</f:button></td>
 		</tr>
 	</table>
+	
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Transaction Completed</h4>
+        </div>
+        <div class="modal-body">
+          <p>Payment Done</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </f:form>
 	
 </body>

@@ -65,8 +65,27 @@
 <tr><td>Pin Code</td><td><input type="text" name="pincode" value=${driver.pincode}></td></tr>
 <tr><td>Mobile Number</td><td><input type="text" name="mobileNo" value=${driver.mobileNo}></td></tr>
 <tr><td>License Number</td><td><input type="text" name="licenseNumber" value=${driver.licenseNumber}></td></tr>
-<tr><td><input type="submit" value="Update"></td></tr>
+<tr><td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update</button></td></tr>
 </table>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Driver Details Updated</h4>
+        </div>
+        <div class="modal-body">
+          <p>Payment Done</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </form>
 </body>
 </html>

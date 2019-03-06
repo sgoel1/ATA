@@ -123,7 +123,11 @@ public class CustomerController {
 	@RequestMapping(value="/bookv")
 	public String bookveh(Model m){
 		List<String> result=customerImpl.getAllSource();
+		List<Integer> result1=customerImpl.getSeats();
+		List<String> result2=customerImpl.getVehicleType();
 		m.addAttribute("SourceList", result);
+		m.addAttribute("SeatList", result1);
+		m.addAttribute("VehicleTypeList", result2);
 		m.addAttribute("vehicleBean",new VehicleBean());
 		m.addAttribute("routeBean",new RouteBean());
 		m.addAttribute("reservationBean",new ReservationBean());

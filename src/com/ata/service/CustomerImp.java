@@ -1,6 +1,7 @@
 package com.ata.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -143,6 +144,41 @@ public class CustomerImp implements Customer {
 		 for(RouteBean rb: result)
 		 {
 			 set.add(rb.getSource());
+		 }
+		 int n = set.size(); 
+		 List<String> aList = new ArrayList<String>(n); 
+		 for (String x : set) 
+		 aList.add(x); 
+		return aList;
+	}
+	
+	@Override
+	@Transactional
+	public List getSeats() {
+		 Criteria crit =sessionfactory.getCurrentSession().createCriteria(VehicleBean.class);
+		 ArrayList<VehicleBean> result = (ArrayList<VehicleBean>) crit.list();
+		 Set<Integer> set = new HashSet();
+		 for(VehicleBean vb: result)
+		 {
+			 set.add(vb.getSeatingCapacity());
+		 }
+		 int n = set.size(); 
+		 List<Integer> aList = new ArrayList<Integer>(n); 
+		 for (Integer x : set) 
+		 aList.add(x); 
+		 Collections.sort(aList);
+		return aList;
+	}
+	
+	@Override
+	@Transactional
+	public List getVehicleType() {
+		 Criteria crit =sessionfactory.getCurrentSession().createCriteria(VehicleBean.class);
+		 ArrayList<VehicleBean> result = (ArrayList<VehicleBean>) crit.list();
+		 Set<String> set = new HashSet();
+		 for(VehicleBean vb: result)
+		 {
+			 set.add(vb.getType());
 		 }
 		 int n = set.size(); 
 		 List<String> aList = new ArrayList<String>(n); 

@@ -139,21 +139,22 @@
 	<h3 align="center">Select Vehicle</h3>
 	<div align="center">
 	<label ><!-- <input type="radio" name="vehicle">By Seats</label> -->By seats</label>
-	<select id="seatingcapacity"  onchange="sendreqseat(this.value)" >
-		<option value="1">one</option>
-		<option value="2">two</option>
-		<option value="3">three</option>
-		<option value="4">four</option>
-	</select>
-	
-	
-	<label style="margin-left: 50px;"><!-- <input type="radio" name="vehicle">-->By type </label> 
-	<select id="type"  onchange="sendreqtype(this.value) " required>
-		<option value="Car">Car</option>
-		<option value="Bus">Bus</option>
-		<option value="Bike">Bike</option>
-		<option value="Jeep">Jeep</option>
-	</select>
+			<select id="seatingcapacity" name="seatingcapacity"
+				onchange="sendreqseat(this.value)">
+				<option value="">Seat</option>
+				<c:forEach items="${SeatList}" var="item">
+					<option value="${item}">${item}</option>
+				</c:forEach>
+			</select> 
+			<label style="margin-left: 50px;"><input type="radio"
+				name="vehicle">By Type</label> <select id="type" name="type"
+				onchange="sendreqtype(this.value)" required>
+				<option value="">Type</option>
+				<c:forEach items="${VehicleTypeList}" var="item">
+					<option value="${item}">${item}</option>
+				</c:forEach>
+			</select> <br />
+			<br />
 <br/><br/>
 
 	<!-- This div will display the data -->

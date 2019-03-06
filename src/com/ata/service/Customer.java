@@ -21,5 +21,7 @@ public interface Customer {
 	String makePayment(CreditCardBean payment);
 	String updateReservation(String reservationID);
 	List getAllSource();
+	List getVehicleType();
+	List getSeats();
 }
 

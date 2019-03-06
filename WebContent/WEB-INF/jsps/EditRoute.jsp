@@ -60,7 +60,7 @@
 <tr><td>Destination</td><td><input type="text" name="destination" value=${route.destination}></td></tr>
 <tr><td>Distance</td><td><input type="text" name="distance" value=${route.distance}></td></tr>
 <tr><td>TravelDuration</td><td><input type="text" name="travelDuration" value=${route.travelDuration}></td></tr>
-<tr><td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update</button></td></tr>
+<tr><td><button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update</button></td></tr>
 </table>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -69,10 +69,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Transaction Completed</h4>
+          <h4 class="modal-title"> SUCCESS</h4>
         </div>
         <div class="modal-body">
-          <p>Payment Done</p>
+          <p>Route Updated</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

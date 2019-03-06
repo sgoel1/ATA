@@ -2,10 +2,13 @@ package com.ata.controller;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -43,7 +46,7 @@ public class MyController {
 	}
 	
 	@RequestMapping(value="/adminhome")
-	public String adminhome(){
+	public String adminhome() throws InterruptedException{
 		return "Admin";
 	}
 	

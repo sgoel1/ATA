@@ -61,12 +61,27 @@
 <tr><td>destination</td><td><input type="text" name="destination"></td></tr>
 <tr><td>distance</td><td><input type="text" name="distance"></td></tr>
 <tr><td>travelDuration</td><td><input type="text" name="travelDuration"></td></tr>
-<tr><td><input type="submit" value="Add Route"></td></tr>
+<tr><td><button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Route</button></td></tr>
 </form>
-<h2 style="color:red;">${res}</h2>
-
-
 </table>
-
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Success</h4>
+        </div>
+        <div class="modal-body">
+          <p>Route Added</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </body>
 </html>

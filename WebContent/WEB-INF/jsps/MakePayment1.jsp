@@ -55,7 +55,7 @@ Credit Card Number:<input type="text" name="creditcard"/><br/><br/>
 Valid From:<input type="text" name="validfrom"/>&nbsp;&nbsp;&nbsp;&nbsp;
 Valid To:<input type="text" name="validto"/><br/><br/>
 Amount:<input type="text" name="balance" value="${reservationDetail.totalFare}" readonly="readonly"/><br/><br/>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Make Payment</button>
+<button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Make Payment</button>
  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     

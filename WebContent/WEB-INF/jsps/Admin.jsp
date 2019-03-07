@@ -11,7 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body background="driver.jpg">
 
 
 	<nav class="navbar navbar-inverse">

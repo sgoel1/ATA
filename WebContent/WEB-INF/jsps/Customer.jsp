@@ -11,6 +11,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
+<%
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+    if(session.getAttribute("user")==null){
+    	response.sendRedirect("/WEB-INF/jsps/index.jsp");
+	}
+%>
 <body>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">

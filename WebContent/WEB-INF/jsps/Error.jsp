@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>ATA | Error Page</title>
 </head>
 <body>
 	<h1 align="center" style="color:blue;">Your session expired</h1>
-	<button>Back to home</button>
+	<p>Please Login first!!!</p>
+	<a href="index">Home</a>
 </body>
 </html>

@@ -108,7 +108,6 @@ function allotDriver(reservationid, driverid)
 							<option value=${driver.driverID}>${driver.driverID}</option>
 						</f:forEach>
 				</select></td>
-				<td></td>
 				<td><input type="button" onclick="allotDriver('${res.reservationID}','driverID')" value="AllotDriver"/>
 				</tr>
 

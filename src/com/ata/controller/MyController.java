@@ -66,6 +66,7 @@ public class MyController {
 	@RequestMapping(value="/login")
 	public String loginuser(CredentialsBean credentialsBean, HttpSession session,Model m){
 		System.out.println("======Inside Login Controller======");
+		try{
 		String s=udao.login(credentialsBean);
 		
 		if(s.equals("A")){
@@ -88,7 +89,11 @@ public class MyController {
 			m.addAttribute("msg","User Already Logged-in!!!");
 			return "index";
 		}
-		return null;
+		}
+		catch(Exception e){
+			return "Error";
+		}
+		return "";
 	}
 	
 	@RequestMapping(value="/adduser")
@@ -124,5 +129,9 @@ public class MyController {
 			return "Error";
 		}
 		
+	}
+	@RequestMapping(value="/index")
+	public String homePage(){
+		return "index";
 	}
 }

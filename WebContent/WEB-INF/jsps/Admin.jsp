@@ -6,11 +6,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="card.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
+<%
+	response.setHeader("Cache-Control","no-cache");
+	response.setHeader("Cache-Control","no-store");
+	response.setHeader("Pragma","no-cache");
+	response.setDateHeader ("Expires", 0);
+    if(session.getAttribute("user")==null){
+    	response.sendRedirect("/WEB-INF/jsps/index.jsp");
+	}
+%>
 <body background="driver.jpg">
 
 
@@ -55,11 +66,24 @@
     </ul>
   </div>
 </nav>
+
+<div id="route" class="alert alert-success alert-dismissible fade in" style="width: 500px; margin-left: 30%" >
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> This alert box could indicate a successful or positive action.
+ </div>
   
-<div class="container">
+<div class="container" style="margin-top: 100px;">
   <h1 align="center">Welcome Admin</h1>
 </div>
 <br><br>
-  <hr>
+
+<!-- Quick links -->
+
+<div class="card">
+  <div class="container">
+    <h4>Allot Driver</h4> 
+  </div>
+</div>
+
 </body>
 </html>

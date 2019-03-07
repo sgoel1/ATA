@@ -15,15 +15,40 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="customerhome">ATA</a>
+      <a class="navbar-brand" href="adminhome">ATA</a>
     </div>
     <ul class="nav navbar-nav">
+     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">ROUTE<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="route">Add Route</a></li>
+          <li><a href="showRoute">Modify/Delete Route</a></li>
+        </ul>
+      </li>
       
-      <li><a href="bookv">+New Reservation</a></li>
-      <li><a href="viewresv">View Reservations</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">DRIVER<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="add">Add Driver</a></li>
+          <li><a href="showDriver">Modify/Delete Driver</a></li>
+        </ul>
+      </li>
+      
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">VEHICLE<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="display">Add Vehicle</a></li>
+          <li><a href="showall">Modify/Delete Vehicle</a></li>
+        </ul>
+      </li>
+      
+       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="allotdriver">Allot Driver</a></li>
+          <li><a href="viewBookingPage">View Reservation</a></li>
+        </ul>
+      </li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="viewProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
@@ -31,6 +56,7 @@
     </ul>
   </div>
 </nav>
+  
 <div class="container" >
 	<div class="row" >
        <div class="col-md-7 ">

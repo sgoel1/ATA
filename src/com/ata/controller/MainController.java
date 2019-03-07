@@ -94,7 +94,8 @@ public class MainController {
 	@RequestMapping(value="/addroute")
 	public String addRoute(RouteBean routeBean,Model m){
 		String res=administratorImp.addRoute(routeBean);
-		m.addAttribute("res",res);
+		String routeMessage="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
+		m.addAttribute("res",routeMessage);
 		return "AddRoute";
 	}
 	

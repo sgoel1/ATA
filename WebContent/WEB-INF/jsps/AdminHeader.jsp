@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
- <title>Insert title here</title>
+ <title>ATA | Admin</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -48,7 +48,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="viewProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-      <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      <li><a href="../logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     </ul>
   </div>
 </nav>

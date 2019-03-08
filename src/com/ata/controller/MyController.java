@@ -1,34 +1,32 @@
 package com.ata.controller;
 
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import javax.servlet.http.HttpServletRequest;
+
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+
+
+
 
 import java.io.IOException;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ata.bean.CredentialsBean;
-import com.ata.bean.DriverBean;
 import com.ata.bean.ProfileBean;
-import com.ata.bean.ReservationBean;
-import com.ata.bean.RouteBean;
+
+
 import com.ata.util.Authentication;
 import com.ata.util.User;
-import com.ata.util.UserImpl;
+
 
 @Controller
 public class MyController {
@@ -44,7 +42,6 @@ public class MyController {
 	
 	@RequestMapping(value="/")
 	public String login(Model m){
-		//m.addAttribute("credentialsBean",new CredentialsBean());
 		return "index";
 	}
 	
@@ -98,25 +95,17 @@ public class MyController {
 		return "Show";
 	}
 	
-	@RequestMapping(value="/Admin/logout")
+	@RequestMapping(value="/logout")
 	public String logout(HttpSession session,Model m,HttpServletResponse response) throws IOException{
+			System.out.println("===============User logged-out==============");
 			ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
 			udao.logout(profileBean.getUserID());
 			session.setAttribute("user", null);
 			m.addAttribute("logoutmsg","Logged Out Successfully!");
-			return "redirect:/";
+			return login(m);
 		
 	}
 	
-	@RequestMapping(value="/Customer/logout")
-	public String logout1(HttpSession session,Model m,HttpServletResponse response) throws IOException{
-			ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
-			udao.logout(profileBean.getUserID());
-			session.setAttribute("user", null);
-			m.addAttribute("logoutmsg","Logged Out Successfully!");
-			return "redirect:/";
-		
-	}
 	
 	@RequestMapping(value="/index")
 	public String homePage(){

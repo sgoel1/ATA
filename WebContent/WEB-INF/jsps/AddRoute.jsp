@@ -21,10 +21,10 @@
 <div style="width:80%;">
 <table class="table table-sm table-dark">
 <form action="addroute">
-<tr><td>source</td><td><input type="text" name="source"></td></tr>
-<tr><td>destination</td><td><input type="text" name="destination"></td></tr>
-<tr><td>distance</td><td><input type="text" name="distance"></td></tr>
-<tr><td>travelDuration</td><td><input type="text" name="travelDuration"></td></tr>
+<tr><td>source</td><td><input type="text" name="source" required></td></tr>
+<tr><td>destination</td><td><input type="text" name="destination" required></td></tr>
+<tr><td>distance</td><td><input type="text" name="distance" required></td></tr>
+<tr><td>travelDuration</td><td><input type="text" name="travelDuration" required></td></tr>
 <tr><td><button type="submit" class="btn btn-info btn-lg" >Add Route</button></td></tr>
 </form>
 </table>

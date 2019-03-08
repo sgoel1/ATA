@@ -37,9 +37,10 @@ public class AdminRouteController {
 		@RequestMapping(value="/addroute")
 		public String addRoute(RouteBean routeBean,Model m){
 			String res=administratorImp.addRoute(routeBean);
-			String routeMessage="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-			m.addAttribute("res",routeMessage);
-			return "AddRoute";
+			//String routeMessage="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
+			m.addAttribute("status",true);
+			m.addAttribute("res",res);
+			return showAllRoute(m);
 		}
 		
 		//=================UPDATING ROUTE==========
@@ -70,7 +71,7 @@ public class AdminRouteController {
 				
 				m.addAttribute("status",status);
 				m.addAttribute("res",msg);
-				return showAllRoute(routeBean, m);
+				return showAllRoute(m);
 			}
 			//=============DELETING ROUTE============
 			@RequestMapping(value="/deleteRoute",method=RequestMethod.GET)
@@ -94,12 +95,12 @@ public class AdminRouteController {
 			catch(Exception e){
 				m.addAttribute("status",status);
 				m.addAttribute("res","Could not delete route "+routeID);
-				return showAllRoute(routeBean, m);
+				return showAllRoute(m);
 			}
 				}
 			//=============SHOW ALL ROUTES==========
 			@RequestMapping(value="/showRoute",method=RequestMethod.GET)
-			public String showAllRoute(RouteBean routeBean,Model m)
+			public String showAllRoute(Model m)
 			{
 				List<RouteBean> li=administratorImp.getAllRoute();
 				m.addAttribute("rb", li);

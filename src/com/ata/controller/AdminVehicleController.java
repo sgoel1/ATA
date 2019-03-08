@@ -56,7 +56,7 @@ public class AdminVehicleController {
 	public String updateTodb(VehicleBean vehicleEditBean,Model m)
 	{
 		System.out.println(vehicleEditBean.getVehicleID()+"jf "+vehicleEditBean.getName());
-		boolean res1=administratorDao.modifyVehicle(vehicleEditBean);
+		administratorDao.modifyVehicle(vehicleEditBean);
 		String res="Vehicle Updated";
 		String vehicleUpdate="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
 		m.addAttribute("res",vehicleUpdate);

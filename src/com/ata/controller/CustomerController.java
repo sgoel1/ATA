@@ -1,15 +1,13 @@
 package com.ata.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.sql.Date;
-import java.util.Calendar;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.text.DefaultEditorKit.CutAction;
 
-import org.apache.tomcat.util.buf.UDecoder;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ata.bean.CredentialsBean;
+
 import com.ata.bean.CreditCardBean;
 import com.ata.bean.ProfileBean;
 import com.ata.bean.ReservationBean;

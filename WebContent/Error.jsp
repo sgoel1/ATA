@@ -7,8 +7,10 @@
 <title>ATA | Error Page</title>
 </head>
 <body>
-	<h1 align="center" style="color:blue;">Your session expired</h1>
-	<p>Please Login first!!!</p>
-	<a href="index">Home</a>
+	<div align="center">
+		<h1 align="center" style="color:blue;">Your session expired</h1><br><br>
+		<h3>Please Login first!!!</h3>
+		<a href="../index"><strong>Home</strong></a>
+	</div>
 </body>
 </html>

@@ -8,12 +8,13 @@
     <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-   <!-- <filter>
+   <filter>
         <filter-name>SessionFilter</filter-name> 
         <filter-class>com.ata.filter.SessionFilter</filter-class> 
     </filter>
     <filter-mapping> 
         <filter-name>SessionFilter</filter-name> 
-        <url-pattern>/adminhome</url-pattern> 
-    </filter-mapping>  -->
+        <url-pattern>/Admin/*</url-pattern>
+        <url-pattern>/Customer/*</url-pattern> 
+    </filter-mapping>
 </web-app>

@@ -12,17 +12,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<%
-	response.setHeader("Cache-Control","no-cache");
-	response.setHeader("Cache-Control","no-store");
-	response.setHeader("Pragma","no-cache");
-	response.setDateHeader ("Expires", 0);
-    if(session.getAttribute("user")==null){
-    	response.sendRedirect("/WEB-INF/jsps/index.jsp");
-	}
-%>
-<body>
 
+<body>
 <h3 align="center" style="color:red;">${message2}</h3>
 <h1 align="center">Welcome Customer</h1>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

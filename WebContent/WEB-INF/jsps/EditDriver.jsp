@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ include file="AdminHeader.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,49 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="adminhome">ATA</a>
-    </div>
-    <ul class="nav navbar-nav">
-     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">ROUTE<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="route">Add Route</a></li>
-          <li><a href="showRoute">Modify/Delete Route</a></li>
-        </ul>
-      </li>
-      
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">DRIVER<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="add">Add Driver</a></li>
-          <li><a href="showDriver">Modify/Delete Driver</a></li>
-        </ul>
-      </li>
-      
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">VEHICLE<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="display">Add Vehicle</a></li>
-          <li><a href="showall">Modify/Delete Vehicle</a></li>
-        </ul>
-      </li>
-      
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="allotdriver">Allot Driver</a></li>
-          <li><a href="viewBookingPage">View Reservation</a></li>
-        </ul>
-      </li>
-      
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-      <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-    </ul>
-  </div>
-</nav>
-<form action="modified" method="get">
 
+<form action="modified" method="get">
 <table class="table table-sm table-dark">
 <tr><td>Driver ID</td><td><input type="hidden" name="driverID" value=${driver.driverID}><input type="text" name="dID" value=${driver.driverID} disabled></td></tr>
 <tr><td>Name</td><td><input type="text" name="name" value=${driver.name}></td></tr>
@@ -87,5 +47,7 @@
     </div>
   </div>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>
 </html>

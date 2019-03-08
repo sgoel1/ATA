@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="AdminHeader.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,46 +14,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="adminhome">ATA</a>
-    </div>
-    <ul class="nav navbar-nav">
-     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">ROUTE<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="route">Add Route</a></li>
-          <li><a href="showRoute">Modify/Delete Route</a></li>
-        </ul>
-      </li>
-      
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">DRIVER<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="add">Add Driver</a></li>
-          <li><a href="showDriver">Modify/Delete Driver</a></li>
-        </ul>
-      </li>
-      
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">VEHICLE<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="display">Add Vehicle</a></li>
-          <li><a href="showall">Modify/Delete Vehicle</a></li>
-        </ul>
-      </li>
-      
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">BOOKING<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="allotdriver">Allot Driver</a></li>
-          <li><a href="viewBookingPage">View Reservation</a></li>
-        </ul>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-      <li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-    </ul>
-  </div>
-</nav>
+ 
+ <c:choose>
+ 	<c:when test="${status==true }">
+ 		 <div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> 
+ 	<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+ 	</c:when>
+ 	<c:when test="${status==false }">
+ 	<div class='alert alert-danger alert-dismissible fade in' style='width: 500px; margin-left: 30%'> 
+ 	<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+ 	</c:when>
+ </c:choose>
+ 	${res}
+ </div>
+ 
 <table border="2" class="table table-striped">
 <tr>
 <td>Route Id</td>
@@ -74,7 +49,9 @@
 <td><a href="deleteRoute?routeID=${item.routeID}"> Delete </a></td>
 </tr>
 </c:forEach>
-
 </table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>
 </html>

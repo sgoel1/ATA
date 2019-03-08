@@ -48,38 +48,24 @@ public class MyController {
 		return "index";
 	}
 	
-	@RequestMapping(value="/adminhome")
-	public String adminhome() throws InterruptedException{
-		return "Admin";
-	}
-	
-	@RequestMapping(value="/customerhome")
-	public String customerhome(){
-		return "Customer";
-	}
-	
-	@RequestMapping(value="/viewProfile")
-	public String profile(){
-		return "Profile";
-	}
 	
 	@RequestMapping(value="/login")
 	public String loginuser(CredentialsBean credentialsBean, HttpSession session,Model m){
 		System.out.println("======Inside Login Controller======");
-		try{
+		
 		String s=udao.login(credentialsBean);
 		
 		if(s.equals("A")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
 			session.setAttribute("usertype", "Admin");
 			session.setMaxInactiveInterval(1000);
-			return "Admin";
+			return "redirect:Admin/adminhome";
 		}
 		else if(s.equals("C")){
 			session.setAttribute("user",udao.getuser(credentialsBean.getUserID()));
 			session.setAttribute("usertype", "Customer");
 			session.setMaxInactiveInterval(1000);
-			return "Customer";
+			return "redirect:Customer/customerhome";
 		}
 		else if(s.equals("invalid")){
 			m.addAttribute("msg","Invalid Userid or Password");
@@ -88,10 +74,6 @@ public class MyController {
 		else if(s.equals("already")){
 			m.addAttribute("msg","User Already Logged-in!!!");
 			return "index";
-		}
-		}
-		catch(Exception e){
-			return "Error";
 		}
 		return "";
 	}
@@ -116,20 +98,26 @@ public class MyController {
 		return "Show";
 	}
 	
-	@RequestMapping(value="/logout")
+	@RequestMapping(value="/Admin/logout")
 	public String logout(HttpSession session,Model m,HttpServletResponse response) throws IOException{
-		try{
 			ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
 			udao.logout(profileBean.getUserID());
 			session.setAttribute("user", null);
 			m.addAttribute("logoutmsg","Logged Out Successfully!");
-			return "index";
-		}
-		catch(Exception e){
-			return "Error";
-		}
+			return "redirect:/";
 		
 	}
+	
+	@RequestMapping(value="/Customer/logout")
+	public String logout1(HttpSession session,Model m,HttpServletResponse response) throws IOException{
+			ProfileBean profileBean=(ProfileBean)session.getAttribute("user");
+			udao.logout(profileBean.getUserID());
+			session.setAttribute("user", null);
+			m.addAttribute("logoutmsg","Logged Out Successfully!");
+			return "redirect:/";
+		
+	}
+	
 	@RequestMapping(value="/index")
 	public String homePage(){
 		return "index";

@@ -18,110 +18,16 @@ import com.ata.service.Administrator;
 
 
 @Controller
+@RequestMapping(value="/Admin")
 public class AdminController {
 	
-	@Autowired
-	Administrator administratorDao;
-	
-	@RequestMapping("/vehicle")
-	public String vehicle(){
-		return "VehicleMain";
+	@RequestMapping(value="/adminhome")
+	public String adminhome() throws InterruptedException{
+		return "Admin";
 	}
 	
-	@RequestMapping("/display")
-	public String addVehicle(Model m)
-	{
-		m.addAttribute("vehicleBean", new VehicleBean());
-		return "AddVehicle";
-	}
-	
-	@RequestMapping("/displayEdit")
-	public String displayVehicle(Model m, @RequestParam("vehicleID")String vehicleID, @RequestParam("type")String type,@RequestParam("name")String name,@RequestParam("registrationNumber")String registrationNumber,@RequestParam("seatingCapacity")String seatingCapacity,@RequestParam("farePerKM")String farePerKM)
-	{
-		m.addAttribute("vehicleEditBean", new VehicleBean(vehicleID,name,type,registrationNumber,Integer.parseInt(seatingCapacity),Double.parseDouble(farePerKM)));
-		System.out.println(vehicleID+" "+name+" "+type+" "+registrationNumber);
-		return "UpdateVehicle";
-	}
-	
-	@RequestMapping("/addvdb")
-	public String addTodb(VehicleBean vehicleBean,Model m)
-	{
-		String res=administratorDao.addVehicle(vehicleBean);
-		m.addAttribute("vehicle",res);
-		return "AddVehicle";
-	}
-	
-	@RequestMapping("/updatevdb")
-	public String updateTodb(VehicleBean vehicleEditBean,Model m)
-	{
-		System.out.println(vehicleEditBean.getVehicleID()+"jf "+vehicleEditBean.getName());
-		boolean res=administratorDao.modifyVehicle(vehicleEditBean);
-		return "redirect:showall";
-	}
-	
-	@RequestMapping("/delvdb")
-	public String deleteFromdb(@RequestParam("vehicleID")String vehicleID)
-	{
-		administratorDao.deleteVehicle(vehicleID);
-		return "redirect:showall";
-	}
-	
-	@RequestMapping("/showall")
-	public String showAllVehicles(Model m)
-	{
-		List<VehicleBean> list=administratorDao.showAllVehicles();
-		m.addAttribute("vehicleList", list);
-		//System.out.println(list.get(1).getName());
-		return "Navigation";
-	}
-	
-	@RequestMapping(value="/viewdestination",method=RequestMethod.GET)
-	public @ResponseBody String showdestination(Model m, @RequestParam("source")String source)
-	{
-		List<RouteBean> list=administratorDao.getSelectedRoutes(source);
-		m.addAttribute("RouteList", list);
-		String responsetext="<select id='destination'><option>Destination</option>";
-		for(RouteBean rb:list)
-		{
-		responsetext=responsetext+"<option value='"+rb.getDestination()+"'>"+rb.getDestination()+"</option>";
-		}
-		responsetext=responsetext+"</select>";
-		return responsetext;
-	}
-	
-	@RequestMapping("/viewBooking")
-	public @ResponseBody String viewBookingDetails(@RequestParam("source")String source, @RequestParam("destination")String destination, @RequestParam("journeydate")String journeydate)
-	{
-		List<ReservationBean> list=administratorDao.viewBookingDetails(Date.valueOf(journeydate), source, destination);
-		String responsetext="<table id='customers'>";
-		
-		responsetext=responsetext+"<tr><th>ReservationID</th>";
-		responsetext=responsetext+"<th>Vehicle ID</th>";
-		responsetext=responsetext+"<th>UserID</th>";
-		responsetext=responsetext+"<th>TotalFare</th>";
-		responsetext=responsetext+"<th>Booking Status</th>";
-		responsetext=responsetext+"<th>Boarding Point</th>";
-		responsetext=responsetext+"<th>Drop Point</th></tr>";
-		for(ReservationBean rb:list)
-		{
-		responsetext=responsetext+"<tr><td>"+rb.getReservationID()+"</td>";							
-		responsetext=responsetext+"<td>"+rb.getVehicleID()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getUserID()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getTotalFare()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getBookingStatus()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getBoardingPoint()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getDropPoint()+"</td></tr>";
-		}
-		responsetext=responsetext+"</table>";
-		return responsetext;
-	}
-	
-	@RequestMapping("/viewBookingPage")
-	public String viewBookingPage(Model m)
-	{
-		List<String> result=administratorDao.getAllSource();
-		//System.out.println(result.get(0)+" "+result.get(1));
-		m.addAttribute("SourceList", result);
-		return "ViewBookingAdmin";
+	@RequestMapping(value="/viewProfile")
+	public String profile(){
+		return "AdminProfile";
 	}
 }

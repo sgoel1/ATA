@@ -29,6 +29,7 @@ import com.ata.service.Administrator;
 import com.ata.service.Customer;
 
 @Controller
+@RequestMapping(value="/Customer")
 public class CustomerController {
 	
 	@Autowired
@@ -39,6 +40,17 @@ public class CustomerController {
 	
 	@Autowired
 	SessionFactory sessionFactory;
+	
+	@RequestMapping(value="/customerhome")
+	public String customerhome(){
+		return "Customer";
+	}
+	
+	@RequestMapping(value="/viewProfile")
+	public String profile(){
+		return "CustomerProfile";
+	}
+	
 	
 	@RequestMapping(value="/showvehtype",method=RequestMethod.GET)
 	public @ResponseBody String showVehiclesByType(Model m, @RequestParam("type")String type)
@@ -195,4 +207,19 @@ public class CustomerController {
 		m.addAttribute("reservationBean",reservationBean);
 		return "PrintReservation";
 	}
+	
+	//====================View Reservations Customer=================
+			@RequestMapping(value="/viewresv")
+			public String viewresv(HttpSession session,Model m){
+				ProfileBean pbean=(ProfileBean)session.getAttribute("user");
+				//RouteBean rbean=(RouteBean)session.getAttribute("");
+				//VehicleBean vbean=(VehicleBean)session.getAttribute("");
+				List<ReservationBean> li=customerImpl.viewBookingDetails(pbean.getUserID());
+				//List<ReservationBean> li1=customerImp.viewBookingDetails(rbean.getRouteID());
+				//List<ReservationBean> li2=customerImp.viewBookingDetails(vbean.getVehicleID());
+				m.addAttribute("reslist",li);
+				//m.addAttribute("routelist",li1);
+				//m.addAttribute("vehlist",li2);
+				return "CustomerBooking";
+			}
 }

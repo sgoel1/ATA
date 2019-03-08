@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 public class SessionFilter implements Filter {
 
-	private ArrayList<String> urlList;
+	//private ArrayList<String> urlList;
 
 	public void destroy() {
 	}
@@ -23,31 +23,21 @@ public class SessionFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res,FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		String url = request.getServletPath();
-		boolean allowedRequest = false;
-		if (urlList.contains(url)) {
-			allowedRequest = true;
-		}
-
-		if (!allowedRequest) {
+		//String url = request.getServletPath();
+		
+		
 			HttpSession session = request.getSession(false);
-			if (null == session) {
-				response.sendRedirect("Error.jsp");
+			if (null == session||session.getAttribute("user")==null) {
+				request.getRequestDispatcher("/Error.jsp").forward(req, res);
+				//response.sendRedirect("Error.jsp");
 			} else {
 				chain.doFilter(request, response);
 			}
-		} else {
-			chain.doFilter(request, response);
-		}
-	}
+		
+}
+	
 
 	public void init(FilterConfig config) throws ServletException {
-		String urls = config.getInitParameter("avoid-urls");
-		StringTokenizer token = new StringTokenizer(urls, ",");
-		urlList = new ArrayList<String>();
-		while (token.hasMoreTokens()) {
-			urlList.add(token.nextToken());
-
+		
 		}
-	}
 }

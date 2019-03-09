@@ -43,17 +43,31 @@ function allotDriver(reservationid, driverid)
 </script>
 
 <body>
+	<c:choose>
+		<c:when test="${status==true }">
+			<div class='alert alert-success alert-dismissible fade in'
+				style='width: 500px; margin-left: 30%'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+		</c:when>
+		<c:when test="${status==false }">
+			<div class='alert alert-danger alert-dismissible fade in'
+				style='width: 500px; margin-left: 30%'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+		</c:when>
+	</c:choose>
+	${res}
+	</div>
 
 	<table border="2" class="table table-striped">
 		<tr>
-			<td>Reservation Id</td>
-			<td>userID</td>
-			<td>routeID</td>
-			<td>Booking Date</td>
-			<td>Journey Date</td>
-			<td>Total Fare</td>
-			<td>Select Driver</td>
-			<td>Allot Driver</td>
+			<th>Reservation Id</th>
+			<th>userID</th>
+			<th>routeID</th>
+			<th>Booking Date</th>
+			<th>Journey Date</th>
+			<th>Total Fare</th>
+			<th>Select Driver</th>
+			<th>Allot Driver</th>
 		</tr>
 
 		<c:forEach items="${ab}" var="res">
@@ -64,17 +78,18 @@ function allotDriver(reservationid, driverid)
 				<td>${res.bookingDate}</td>
 				<td>${res.journeyDate}</td>
 				<td>${res.totalFare}</td>
-				<td><select name="driverID" id="driverID">
+				<td><select name="driverID" id="driverID" >
 						<option value="">Driver</option>
 						<f:forEach items="${ab1}" var="driver">
 							<option value=${driver.driverID}>${driver.driverID}</option>
 						</f:forEach>
 				</select></td>
-				<td><input type="button" onclick="allotDriver('${res.reservationID}','driverID')" value="AllotDriver"/>
+				<td><input class="btn btn-info btn-md" type="button" onclick="allotDriver('${res.reservationID}','driverID')" value="Allot" style="font-size: 15px;"/>
 				</tr>
 
 		</c:forEach>
-		<h2 id="status" align="center" style="color: red;"></h2>
+		<h2 align="center">${emptyList}</h2>
+		
 	</table>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

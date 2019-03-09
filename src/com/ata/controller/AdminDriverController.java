@@ -27,19 +27,20 @@ public class AdminDriverController {
 	Customer customerImp;
 	
 	//==========ADDING NEW DRIVER======
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	/*@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String helloUser1(Model m)
 	{
 		m.addAttribute("driverBean",new DriverBean());
 		return "AddDriver";
-	}
+	}*/
 	@RequestMapping(value="/addDriver",method=RequestMethod.GET)
 	public String helloUser(DriverBean driverBean,Model m)
 	{
 		  String res=administratorImp.addDriver(driverBean);
-		  String driverAdd="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-		m.addAttribute("res", driverAdd);
-		  return "Admin";
+		  //String driverAdd="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
+		  m.addAttribute("status",true);
+		  m.addAttribute("res",res);
+		  return showAllDriver(driverBean,m);
 	
 	}
 	//=================UPDATING DRIVER==========
@@ -52,24 +53,49 @@ public class AdminDriverController {
 	@RequestMapping(value="/modified",method=RequestMethod.GET)
 	public String modified(DriverBean driverBean,Model m)
 	{	
-		administratorImp.modifyDriver(driverBean);
-		String res="Modified";
-		String driverModify="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-		m.addAttribute("res", driverModify);
-		return "Admin";
+		String msg="";
+		boolean status=false;
+		boolean res=administratorImp.modifyDriver(driverBean);
+		if(res){
+			status=true;
+			msg="successfully modified Driver with id :"+driverBean.getDriverID();
+		}
+		else{
+			msg="failed :( to modify !! ";
+		}
+		
+		//String driverModify="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
+		m.addAttribute("res", msg);
+		m.addAttribute("status",status);
+		return showAllDriver(driverBean,m);
 	}
 	//=============DELETING DRIVER============
 	
 	
 	
 	@RequestMapping(value="/delete",method=RequestMethod.GET)
-	public String delete(@RequestParam("driverID") String driverID,Model m)
+	public String delete(@RequestParam("driverID") String driverID,Model m,DriverBean driverBean)
 	{	
-		administratorImp.deleteDriver(driverID);
-		String res="Deleted";
-		String driverDelete="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-		m.addAttribute("res", driverDelete);
-		return "Admin";	
+		String msg = "";
+		boolean status=false;
+		try{
+			int res=administratorImp.deleteDriver(driverID);
+		if(res==1){
+			msg = "successfully deleted Driver with id :"+driverID;
+			status = true;
+		}
+		else{
+			msg="failed :( to delete !! ";
+		}
+		m.addAttribute("status",status);
+		m.addAttribute("res",msg);
+		return showAllDriver(driverBean,m);
+	}
+	catch(Exception e){
+		m.addAttribute("status",status);
+		m.addAttribute("res","Could not delete Driver "+driverID);
+		return showAllDriver(driverBean,m);
+	}
 		}
 	@RequestMapping(value="/showDriver",method=RequestMethod.GET)
 	public String showAllDriver(DriverBean driverBean,Model m)
@@ -84,25 +110,31 @@ public class AdminDriverController {
 		//==============Allot Driver======================
 		
 		@RequestMapping(value="/allotdriver")
-		public String allotdriver(ReservationBean reservationBean,DriverBean driverBean,Model m){
+		public String allotdriver(Model m){
 			List<ReservationBean> li=administratorImp.viewDetails();
 			List<DriverBean> driverlist=administratorImp.getAllDriver();
-			m.addAttribute("ab", li);
-			m.addAttribute("ab1",driverlist);
+			if(li.isEmpty()){
+				m.addAttribute("emptyList","No new reservations avaliable!!!");
+			}
+			else{
+				m.addAttribute("ab", li);
+				m.addAttribute("ab1",driverlist);
+			}
 			return "AllotDriver";
 		}
 		
 		@RequestMapping(value="/allotDriver")
-		public @ResponseBody String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
+		public String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
 			boolean b=administratorImp.allotDriver(reservationID, driverID);
-			if(b==true){
-				m.addAttribute("allotd","Driver Alloted");
-				return "<h2>Driver Alloted</h2>";
+			if(b){
+				m.addAttribute("status",b);
+				m.addAttribute("res","Driver Alloted");
 			}
 			else{
-				m.addAttribute("allotd","Driver Not Alloted");
-				return "<h2>Driver Not Alloted</h2>";
+				m.addAttribute("status",b);
+				m.addAttribute("res","Driver not alloted!!!");
 			}
+			return allotdriver(m);
 		}
 	
 

@@ -28,48 +28,84 @@ public class AdminVehicleController {
 		return "VehicleMain";
 	}
 	
-	@RequestMapping("/display")
-	public String addVehicle(Model m)
-	{
-		m.addAttribute("vehicleBean", new VehicleBean());
-		return "AddVehicle";
-	}
 	
+	//==================Update Vehicle=======================
 	@RequestMapping("/displayEdit")
 	public String displayVehicle(Model m, @RequestParam("vehicleID")String vehicleID, @RequestParam("type")String type,@RequestParam("name")String name,@RequestParam("registrationNumber")String registrationNumber,@RequestParam("seatingCapacity")String seatingCapacity,@RequestParam("farePerKM")String farePerKM)
 	{
 		m.addAttribute("vehicleEditBean", new VehicleBean(vehicleID,name,type,registrationNumber,Integer.parseInt(seatingCapacity),Double.parseDouble(farePerKM)));
-		System.out.println(vehicleID+" "+name+" "+type+" "+registrationNumber);
 		return "UpdateVehicle";
-	}
-	
-	@RequestMapping("/addvdb")
-	public String addTodb(VehicleBean vehicleBean,Model m)
-	{
-		String res=administratorDao.addVehicle(vehicleBean);
-		String vehicleAdd="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-		m.addAttribute("res",vehicleAdd);
-		return "AddVehicle";
 	}
 	
 	@RequestMapping("/updatevdb")
 	public String updateTodb(VehicleBean vehicleEditBean,Model m)
 	{
-		System.out.println(vehicleEditBean.getVehicleID()+"jf "+vehicleEditBean.getName());
-		administratorDao.modifyVehicle(vehicleEditBean);
-		String res="Vehicle Updated";
-		String vehicleUpdate="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
-		m.addAttribute("res",vehicleUpdate);
-		return "redirect:showall";
+		String msg = "";
+		boolean status=false;
+		boolean res = administratorDao.modifyVehicle(vehicleEditBean);
+		if(res)
+		{
+			msg = "successfully modified Vehicle with id :"+vehicleEditBean.getVehicleID();
+			status = true;
+		}
+		else
+		{
+			msg="failed :( to modify !! ";
+			
+		}
+		
+		m.addAttribute("status",status);
+		m.addAttribute("res",msg);
+		return showAllVehicles(m);
 	}
 	
-	@RequestMapping("/delvdb")
-	public String deleteFromdb(@RequestParam("vehicleID")String vehicleID)
+	//====================Add Vehicle=========================
+	
+	/*@RequestMapping("/display")
+	public String addVehicle(Model m)
 	{
-		administratorDao.deleteVehicle(vehicleID);
-		return "redirect:showall";
+		m.addAttribute("vehicleBean", new VehicleBean());
+		return "AddVehicle";
+	}*/
+	
+	@RequestMapping("/addvdb")
+	public String addTodb(VehicleBean vehicleBean,Model m)
+	{
+		String res=administratorDao.addVehicle(vehicleBean);
+		//String vehicleAdd="<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'> <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong>"+res+"</div>";
+		m.addAttribute("status",true);
+		m.addAttribute("res",res);
+		return showAllVehicles(m);
 	}
 	
+	
+	//====================Delete Vehicle==========================
+	@RequestMapping("/delvdb")
+	public String deleteFromdb(@RequestParam("vehicleID")String vehicleID,Model m)
+	{
+		String msg = "";
+		boolean status=false;
+		try{
+		int res=administratorDao.deleteVehicle(vehicleID);
+		if(res==1){
+			msg = "successfully deleted Vehicle with id :"+vehicleID;
+			status = true;
+		}
+		else{
+			msg="failed :( to delete !! ";
+		}
+		m.addAttribute("status",status);
+		m.addAttribute("res",msg);
+		return showAllVehicles(m);
+	}
+	catch(Exception e){
+		m.addAttribute("status",status);
+		m.addAttribute("res","Could not delete Vehicle "+vehicleID);
+		return showAllVehicles(m);
+	}
+	}
+	
+	//====================Show All Vehicles===================
 	@RequestMapping("/showall")
 	public String showAllVehicles(Model m)
 	{
@@ -79,6 +115,7 @@ public class AdminVehicleController {
 		return "Navigation";
 	}
 	
+	//=====================Admin view Bookings===================
 	@RequestMapping(value="/viewdestination",method=RequestMethod.GET)
 	public @ResponseBody String showdestination(Model m, @RequestParam("source")String source)
 	{

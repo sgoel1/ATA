@@ -18,7 +18,7 @@
 <body>
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		<h4 class="modal-title">New Route</h4>
+		<h4 class="modal-title">Update Route</h4>
 	</div>
 	<form action="modifiedRoute" method="get">
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
-<%@ include file="AdminHeader.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,55 +14,43 @@ pageEncoding="ISO-8859-1"%>
 </head>
 <body>
 	
-	<f:form action="updatevdb" commandName="vehicleEditBean" method="get">
+	<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Vehicle</h4>
+				</div>
+	
+	<form action="updatevdb" method="get">
 	<table class="table table-sm table-dark">
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Vehicle id:</td>
-			<td><f:input type="text" path="vehicleID" class="textbox1" readonly="true"/></td>
+			<td >Vehicle id:</td>
+			<td><input type="text" name="vehicleID" value="${vehicleEditBean.vehicleID}" class="textbox1" style="background-color: #E8E8E8" readonly="readonly"/></td>
 		<tr>
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Name:</td>
-			<td><f:input type="text" path="name" class="textbox1" /></td>
+			<td>Name:</td>
+			<td><input type="text" name="name" value="${vehicleEditBean.name }" class="textbox1" /></td>
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Type:</td>
-			<td><f:input type="text" path="type" class="textbox1" /></td>
+			<td>Type:</td>
+			<td><input type="text" name="type" value="${vehicleEditBean.type }" class="textbox1" /></td>
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Registration
+			<td>Registration
 				Number:</td>
-			<td><f:input type="text" path="registrationNumber" class="textbox1" /></td>
+			<td><input type="text" name="registrationNumber" value="${vehicleEditBean.registrationNumber}" class="textbox1" /></td>
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Seating Capacity:</td>
-			<td><f:input type="text" path="seatingCapacity" class="textbox1" /></td>
+			<td>Seating Capacity:</td>
+			<td><input type="text" name="seatingCapacity" value="${vehicleEditBean.seatingCapacity}" class="textbox1" /></td>
 		<tr>
 		<tr>
-			<td style="font-size: 20px; font-weight: 900;">Fare Per KM:</td>
-			<td><f:input type="text" path="farePerKM" class="textbox1" /></td>
+			<td>Fare Per KM:</td>
+			<td><input type="text" name="farePerKM" value="${vehicleEditBean.farePerKM}" class="textbox1" /></td>
 		<tr>
-			<td><f:button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Vehicle</f:button></td>
+			<td><button type="submit" class="btn btn-info btn-lg" >Update Vehicle</button></td>
 		</tr>
 	</table>
-	
- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">SUCCESS</h4>
-        </div>
-        <div class="modal-body">
-          <p>Vehicle Details Updated</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</f:form>
+</form>
+<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>
 </html>

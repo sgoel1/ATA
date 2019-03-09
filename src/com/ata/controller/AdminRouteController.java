@@ -29,11 +29,11 @@ public class AdminRouteController {
 			return "RouteMain";
 		}
 		
-		@RequestMapping(value="/route")
+		/*@RequestMapping(value="/route")
 		public String route(Model m){
 			m.addAttribute("routeBean",new RouteBean());
 			return "AddRoute";
-		}
+		}*/
 		@RequestMapping(value="/addroute")
 		public String addRoute(RouteBean routeBean,Model m){
 			String res=administratorImp.addRoute(routeBean);

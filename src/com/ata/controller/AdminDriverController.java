@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -124,17 +126,15 @@ public class AdminDriverController {
 		}
 		
 		@RequestMapping(value="/allotDriver")
+		@ResponseBody
 		public String allotDriver(@RequestParam("reservationID")String reservationID,@RequestParam("driverID")String driverID,Model m){
 			boolean b=administratorImp.allotDriver(reservationID, driverID);
 			if(b){
-				m.addAttribute("status",b);
-				m.addAttribute("res","Driver Alloted");
+				return "<div class='alert alert-success alert-dismissible fade in' style='width: 500px; margin-left: 30%'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Success! Driver Alloted</div>";
 			}
 			else{
-				m.addAttribute("status",b);
-				m.addAttribute("res","Driver not alloted!!!");
+				return "<div class='alert alert-danger alert-dismissible fade in' style='width: 500px; margin-left: 30%'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Failed :( Driver Not Alloted</div>";
 			}
-			return allotdriver(m);
 		}
 	
 

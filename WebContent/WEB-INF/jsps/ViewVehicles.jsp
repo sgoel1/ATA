@@ -152,9 +152,9 @@
 					<option value="${item}">${item}</option>
 				</c:forEach>
 			</select> 
-			<label style="margin-left: 50px;"><input type="radio"
-				name="vehicle">By Type</label> <select id="type" name="type"
-				onchange="sendreqtype(this.value)" required>
+			<label style="margin-left: 50px;">
+				By Type</label> <select id="type" name="type"
+				onchange="sendreqtype(this.value)">
 				<option value="">Type</option>
 				<c:forEach items="${VehicleTypeList}" var="item">
 					<option value="${item}">${item}</option>

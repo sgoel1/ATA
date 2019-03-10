@@ -7,6 +7,7 @@
 <title>ATA | SignUp</title>
 </head>
 <body>
+	<div align="center">
 	<div id="backgroundborder1">
 		<h1>Signup</h1>
 		<h3 style="color: red;">${res}</h3>
@@ -53,11 +54,12 @@
 					<td><input type="password" name="password" class="textbox1" required/></td>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="AddUser" class="button1"></td>
+					<td><input type="submit" value="Register" class="button1"></td>
 				</tr>
 				
 			</table>
 		</form>
+		</div>
 		</div>
 </body>
 </html>

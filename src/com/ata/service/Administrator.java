@@ -51,5 +51,7 @@ public interface Administrator {
 	List getAllSource();
 
 	ArrayList<RouteBean> getSelectedRoutes(String source);
+	
+	public List<ReservationBean> viewAllReservationBookings();
 
 }

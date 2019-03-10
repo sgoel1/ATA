@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+       <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="AdminHeader.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -69,26 +70,51 @@ function sendreqsource(source) {
 </head>
 <body>
 
-Select Source:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select id="source" name="source" onchange="sendreqsource(this.value)" style="margin-left: 10px;">
+<div style="background-color: #F5F5F5;">
+<label style="margin: 20px; float:left;">Select Source:</label>
+<select id="source" name="source" onchange="sendreqsource(this.value)" style="margin: 20px;margin-left:5px; float:left;">
 	<option value="">Source</option>
 		<c:forEach items="${SourceList}" var="item">
 			<option value="${item}">${item}</option>
 		</c:forEach>
 </select>
 
-<br/>
-<br/>
-Select Destination:
-<div id="mydiv1"></div>
-<br/>
-<br/>
-Select Journey Date: <input type="date" id="journeydate" name="journeydate"/>
-<br/>
-<br/>
-<input type="button" value="View Bookings" onclick="getBooking()"/>
 
-<div id="mydiv"></div>
+<label style="margin: 20px; float:left;">Select Destination:</label>
+<div id="mydiv1" style="float:left; margin:20px; margin-left: 5px;" ></div>
+
+<label style="margin: 20px;">Select Journey Date:</label> <input type="date" id="journeydate" name="journeydate" style="margin-right: 20px;"/>
+
+<input type="button" value="View Bookings" onclick="getBooking()" class="btn btn-primary"/>
+</div>
+<br><br>
+<div id="mydiv">
+<table class="table table-striped">
+	
+		<tr>
+			<th scope="col">Reservation ID</th>
+			<th scope="col">User ID</th>
+			<th scope="col">Route ID</th>
+			<th scope="col">Vehicle ID</th>
+			<th scope="col">Booking Date</th>
+			<th scope="col">Journey Date</th>
+			<th scope="col">Booking Status</th>
+		</tr>
+	
+	<f:forEach items="${AllReservations}" var="resv">
+		<tr>
+			<td>${resv.reservationID}</td>
+			<td>${resv.userID}</td>
+			<td>${resv.routeID}</td>
+			<td>${resv.vehicleID}</td>
+			<td>${resv.bookingDate}</td>
+			<td>${resv.journeyDate}</td>
+			<td>${resv.bookingStatus}</td>
+		</tr>	
+	</f:forEach>
+	
+</table>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </body>

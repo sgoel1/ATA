@@ -226,7 +226,8 @@ public class AdministratorImp implements Administrator {
 			sessionfactory.getCurrentSession().update(reservationBean);
 			return true;
 		}
-		return false;
+		else
+			return false;
 	}
 
 	@Override
@@ -236,6 +237,7 @@ public class AdministratorImp implements Administrator {
 		List<ReservationBean> list=q.list();
 		return list;
 	}
+	
 
 	@Override
 	public RouteBean getRoute(String routeID) {
@@ -274,6 +276,13 @@ public class AdministratorImp implements Administrator {
 		 // System.out.println(""+x);
 		 }
 		return aList;
+	}
+
+	@Override
+	public List<ReservationBean> viewAllReservationBookings() {
+		Query q=sessionfactory.getCurrentSession().createQuery("from ReservationBean");
+		List<ReservationBean> list=q.list();
+		return list;
 	}
 }
 

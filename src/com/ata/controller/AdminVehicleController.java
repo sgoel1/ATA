@@ -134,24 +134,24 @@ public class AdminVehicleController {
 	public @ResponseBody String viewBookingDetails(@RequestParam("source")String source, @RequestParam("destination")String destination, @RequestParam("journeydate")String journeydate)
 	{
 		List<ReservationBean> list=administratorDao.viewBookingDetails(Date.valueOf(journeydate), source, destination);
-		String responsetext="<table id='customers'>";
+		String responsetext="<table id='customers' class='table table-striped'>";
 		
-		responsetext=responsetext+"<tr><th>ReservationID</th>";
+		responsetext=responsetext+"<tr><th>Reservation ID</th>";
+		responsetext=responsetext+"<th>User ID</th>";
+		responsetext=responsetext+"<th>Route ID</th>";
 		responsetext=responsetext+"<th>Vehicle ID</th>";
-		responsetext=responsetext+"<th>UserID</th>";
-		responsetext=responsetext+"<th>TotalFare</th>";
+		responsetext=responsetext+"<th>Booking Date</th>";
+		responsetext=responsetext+"<th>Journey Date</th>";
 		responsetext=responsetext+"<th>Booking Status</th>";
-		responsetext=responsetext+"<th>Boarding Point</th>";
-		responsetext=responsetext+"<th>Drop Point</th></tr>";
 		for(ReservationBean rb:list)
 		{
 		responsetext=responsetext+"<tr><td>"+rb.getReservationID()+"</td>";							
-		responsetext=responsetext+"<td>"+rb.getVehicleID()+"</td>";
 		responsetext=responsetext+"<td>"+rb.getUserID()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getTotalFare()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getRouteID()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getVehicleID()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getBookingDate()+"</td>";
+		responsetext=responsetext+"<td>"+rb.getJourneyDate()+"</td>";
 		responsetext=responsetext+"<td>"+rb.getBookingStatus()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getBoardingPoint()+"</td>";
-		responsetext=responsetext+"<td>"+rb.getDropPoint()+"</td></tr>";
 		}
 		responsetext=responsetext+"</table>";
 		return responsetext;
@@ -162,6 +162,8 @@ public class AdminVehicleController {
 	{
 		List<String> result=administratorDao.getAllSource();
 		//System.out.println(result.get(0)+" "+result.get(1));
+		List<ReservationBean> list=administratorDao.viewAllReservationBookings();
+		m.addAttribute("AllReservations",list);
 		m.addAttribute("SourceList", result);
 		return "ViewBookingAdmin";
 	}
